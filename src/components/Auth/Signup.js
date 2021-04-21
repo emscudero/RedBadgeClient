@@ -32,7 +32,7 @@ class Signup extends Component {
           <FormGroup>
             <Label htmlFor="email">Email</Label>
             <Input
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => this.setState(e.target.value)}
               type="email"
               name="email"
               value={email}
@@ -42,8 +42,7 @@ class Signup extends Component {
           <FormGroup>
             <Label htmlFor="password">Password</Label>
             <Input
-              onChange={(e) => setPassword(e.target.value)}
-              minLength="5"
+              onChange={(e) => this.setState(e.target.value)}
               name="password"
               value={password}
               type="password"
