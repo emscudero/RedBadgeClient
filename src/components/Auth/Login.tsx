@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Form, FormGroup, Label, Input, Button } from "reactstrap";
 
+
+
 type UserVariables = {
   email: string,
   password:  string
@@ -33,13 +35,13 @@ class Login extends Component<{}, UserVariables> {
     return (
       <div>
         <h1>Login</h1>
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={this.handleSubmit}>
           <FormGroup>
             <Label htmlFor="email">Email</Label>
             <Input
               onChange={(e) => this.setState(e.target.value)}
               name="email"
-              value={email}
+              value={this.state.email}
               required
             />
           </FormGroup>
@@ -48,7 +50,7 @@ class Login extends Component<{}, UserVariables> {
             <Input
               onChange={(e) => this.setState(e.target.value)}
               name="password"
-              value={password}
+              value={this.state.password}
               type="password"
               required
             />
