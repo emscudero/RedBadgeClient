@@ -3,22 +3,32 @@ import {Table} from "reactstrap";
 
 
 
+interface BabyProps  {
+token: string
+}
+
+interface BabyState {
+
+}
 
 
 
 
-class BabyTable extends Component<{}, > {
-    constructor(props: {}) {
+class BabyTable extends Component<BabyProps, BabyState > {
+    constructor(props: BabyProps) {
         super(props);
         this.state = {  }
     }
 
 fetchBabyList = () => {
+  let localToken = localStorage.getItem("token")
+      localToken = localToken ? localToken: ""
+
   fetch("http://localhost:3000/babylist/", {
             method: "GET",
             headers: new Headers ({
                 "Content-Type": "application/json",
-                "Authorization": this.props.token ? this.props.token : localStorage.getItem("token")
+                "Authorization": this.props.token ? this.props.token : localToken
             })
         })
         .then((res) => res.json())
@@ -27,17 +37,13 @@ fetchBabyList = () => {
             console.log(this.props.token)
         })
     }
-}
-
-
-
 
 
 
     render() { 
         return ( 
 <div>
-            <Table striped>
+            <Table hover>
       <thead>
         <tr>
           <th>#</th>
@@ -71,8 +77,7 @@ fetchBabyList = () => {
     </div>
   );
 }
-         );
-    }
 }
+    
  
 export default BabyTable;

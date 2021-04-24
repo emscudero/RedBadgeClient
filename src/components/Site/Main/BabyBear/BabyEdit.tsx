@@ -1,10 +1,15 @@
+import * as React from 'react';
+import { Component } from 'react';
+
 class BabyEdit extends Component {
-    constructor(props) {
+    constructor(props: {}) {
         super(props);
         this.state = {  }
     }
     render() { 
-        return (  );
+        return (
+            <div></div>
+          );
     }
 }
  

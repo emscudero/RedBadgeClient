@@ -1,29 +1,62 @@
 import React, {Component} from 'react';
-import { Form, FormGroup, Label, Input, Button, InputGroup,  InputGroupAddon } from "reactstrap";
+import { Form, FormGroup, FormText, Label, Input, Button, InputGroup,  InputGroupAddon } from "reactstrap";
 
 
 type babyVariables = {
     brand: string,
     title: string,
-    price: number,
-    store: string
+    price: string,
+    store: string,
+    photo: string
 
 }
 
+interface MamaProps  {
+token: string
+}
 
-class MamaAdd extends Component <{}, babyVariables> {
-    constructor(props: {}) {
+
+const loading = this.state.loading;//string
+
+class MamaAdd extends Component <MamaProps, babyVariables> {
+    constructor(props: MamaProps) {
         super(props);
         this.state = {
             brand: "",
             title: "",
-            price: [],
-            store: ""
+            price: "",
+            store: "",
+            photo: ""
           }
         }
 
 
-handleSubmit = (e) => {
+uploadImage = async (e:React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTMLFormElement>)  => {
+    const files = e.target.files 
+    const data = new FormData()
+    data.append('file', files[0])
+    data.append('upload_preset', 'thePicCloud')
+    this.setState({Loading: true})
+    const res = await fetch(
+    'https://api.cloudinary.com/v1_1/dqaf1fih0/image/upload',
+    {
+      method: 'POST',
+      body: data
+    }
+  )
+  
+  const file = await res.json()
+  
+  this.setState({photo: file.secure_url})
+  console.log(file.secure_url)
+  this.setState({Loading : false})
+  
+  }
+
+
+
+
+handleSubmit = (e: React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     fetch("http://localhost:3000/mamalist/create", {
       method: "POST",
@@ -33,6 +66,7 @@ handleSubmit = (e) => {
          title:this.state.title,
          price:this.state.price,
          store:this.state.store,
+          photo:this.state.photo,
     
         },
       }),
@@ -43,11 +77,11 @@ handleSubmit = (e) => {
     })
       .then((res) => res.json())
       .then((mamaList) => {
-       // toggle();
     this.setState({brand: ''});
       this.setState({title: ''});
-     this.setState({price: []});
+     this.setState({price: ''});
      this.setState({store: ''});
+     this.setState({photo: ''});
     
         console.log(mamaList);
       })
@@ -98,10 +132,10 @@ handleSubmit = (e) => {
             placeholder="Price"
             min={0}
             max={1000000}
-            type="number"
+           
             step="1"
             value={this.state.price}
-            onChange={(e) => this.setState{...price}(e.target.value)}
+            onChange={(e) => this.setState({price: e.target.value})}
           />
           <InputGroupAddon addonType="append">.00</InputGroupAddon>
         </InputGroup>
@@ -119,16 +153,35 @@ handleSubmit = (e) => {
       </FormGroup>
     
 
-      {/*<FormGroup>
+      <FormGroup>
         <Label for="exampleFile">File</Label>
         <Input type="file" name="file" id="exampleFile" />
         <FormText color="muted">
           This is some placeholder block-level help text for the above input.
           It's a bit lighter and easily wraps to a new line.
         </FormText>
-        </FormGroup>*/}
+        </FormGroup>
+
+         <FormGroup>
+      <FormText color="secondary">
+        <Label for="photoUrl">Photo of Insured's Valuable</Label>
+        <Input type="file" name="file" placeholder="upload an image" onChange={uploadImage} />
+        <br />
+
+        {loading ? (
+          <h3> Loading...</h3>
+        ) : (
+        <img src={this.state.photo} style={{width: '300px'}} />
+        )}
+        </FormText>
+        <br/>
+        <br/>
+        <Button outline color="warning">Submit</Button>
+      </FormGroup>
+      <br />
+      <br />
     
-      <Button>Submit {this.handleSubmit}</Button>
+     <Button>Submit {this.handleSubmit}</Button>
     </Form>
 
 

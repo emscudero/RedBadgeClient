@@ -1,18 +1,26 @@
 import React, { Component } from "react";
-import { Button, Modal, ModalFooter, Form, ModalHeader } from "reactstrap";
+import {Button, Modal, ModalHeader, ModalBody, ModalFooter} from "reactstrap";
 import SignUp from "./Signup";
 import Login from "./Login";
 
 type AuthVariables = {
-  modal: boolean,
   showLogin: boolean,
   buttonText: string
 }
 
-class Auth extends Component<{}, AuthVariables> {
-constructor(props: {}) {
+type AuthProps = {
+updateToken: (newToken: string) => void
+}
+
+
+
+ const toggle = () => this.setState ({modal: !modal})
+
+
+class Auth extends Component<AuthProps, AuthVariables> {
+constructor(props: AuthProps) {
 super(props)
-this.state= { modal: true, showLogin: true, buttonText: "Already a User?" };}
+this.state= { showLogin: true, buttonText: "Already a User?" };}
 
 
   handleClick= () => {
@@ -25,36 +33,36 @@ this.state= { modal: true, showLogin: true, buttonText: "Already a User?" };}
     }
   }
 
-  onToggle () {
-    this.state.modal
-  }
- 
+  
   render() {
-
- 
 
   return (
     <div>
-      <Form onSubmit={(e) => e.preventDefault()}>
-        <Modal isOpen={this.state.modal} >
-          <ModalHeader ={ontoggle}>MamaBearsDen</ModalHeader>
-          <div className="form-container">
+ <div>
+      <Button color="danger" onClick={toggle}>{buttonLabel}</Button>
+      <Modal isOpen={modal} fade={false} toggle={toggle} className={className}>
+        <ModalHeader toggle={toggle}>Modal title</ModalHeader>
+        <ModalBody>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </ModalBody>
+        <ModalFooter>
+          <Button color="primary" onClick={toggle}>Login</Button>{' '}
+          <Button color="secondary" onClick={toggle}>SignUp</Button>
+        </ModalFooter>
+      </Modal>
+    </div>
+        
             {this.state.showLogin == true ? (
-              <SignUp updateToken={this.props.updateToken} />
+              <SignUp updateToken={this.props.updateToken} /*toggle= {this.toggle}*/ />
             ) : (
-              <Login updateToken={this.props.updateToken} />
+              <Login updateToken={this.props.updateToken} /*toggle= {this.toggle}*/ />
             )}
 
-            <ModalFooter>
-              <Button color="primary" onClick={this.handleClick}>
-                {this.state.buttonText}
-              </Button>{" "}
-            </ModalFooter>
-          </div>
-      </Form>
-    </div>
-  );
+
+<Button onClick = {this.handleClick}>Click to Toggle 
+</Button>
+       </div>
+  )
 };
 }
-
 export default Auth;

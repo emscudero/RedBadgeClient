@@ -1,9 +1,11 @@
 import { render } from '@testing-library/react';
 import React, {Component} from 'react';
 import './App.css';
-import { Router } from "react-router-dom";
-import Header from "./components/site/Header";
-import Footer from "./components/site/Footer";
+import { BrowserRouter as Router,
+  Switch,
+  Route} from "react-router-dom";
+import Header from "./components/Site/Header";
+import Footer from "./components/Site/Footer";
 
 import Auth from "./components/Auth/Auth";
 
@@ -16,10 +18,10 @@ class App extends Component<{}, AppVariables> {
     super(props);
     this.state = {sessionToken: ""};
   }
-   updateToken(newToken: "") {
-    localStorage.this.setState("token", newToken);
+   updateToken = (newToken: string) => {
+    localStorage.setItem("token", newToken);
     this.setState({sessionToken: newToken});
-    console.log(newToken);
+    //console.log(this.state.sessionToken);
   };
 
   clearToken = () => {
@@ -28,7 +30,15 @@ class App extends Component<{}, AppVariables> {
       sessionToken: ''
     })
   }
-  }
+
+  protectedViews = () => {
+    return this.state.sessionToken === localStorage.getItem("token")? (
+      ""
+    ) : (
+      <Auth updateToken={this.updateToken} />
+    );
+  };
+  
 
   render() {
 
@@ -36,12 +46,13 @@ class App extends Component<{}, AppVariables> {
   return (
     <div>
       <Router>
-        <Header logout={clearToken} token={sessionToken} />
-        {protectedViews()}
-     <Auth updateToken={this.state.updateToken} />
+        {/*<Header logout={this.clearToken} token={this.state.sessionToken} />*/}
+      {this.protectedViews()}
+    
      </Router>
     </div>
   );
+}
 }
 
 export default App;
