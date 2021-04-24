@@ -8,11 +8,11 @@ import {
 
 class AboutUs extends Component {
 
-}
+
 
 render() {
 
-}
+
         return (
 
 
@@ -24,23 +24,17 @@ render() {
               <p className="lead"></p>
               <hr className="my-2" />
               <p></p>
-              <p className="lead">
-              <Button color="warning">
-            <Link to="/OurStory" className="inactive">
-             Our Story
-            </Link>
-          </Button>
-              </p>
+              
             </Jumbotron>
             <Jumbotron>
               <h1 className="display-3">Our Founder</h1>
-              <p className="lead">In 2007, Hank Flowers founded Firelogger.</p>
+              <p className="lead">In 2019, Emily became a mother to a health boy. Though she lived out of state from help and family, she managed by natures instinct to raise him and learn the ropes to motherhood. Now she wants to be able to give moms a source to help online.</p>
               <hr className="my-2" />
-              <p>A humble man from Illinois had a house fire while at work. Click below to read about his tramatic experience that led to a well-known application we know today.</p>
+              <p></p>
               <p className="lead">
               <Button color="warning">
-              <Link to="/HanksStory" className="inactive">
-             About Hank
+              <Link to="/Donate" className="inactive">
+             Donate here
             </Link>
           </Button>
                </p>
@@ -54,6 +48,7 @@ render() {
           </div>
         );
       };
-      
+    
+    }
  
 export default AboutUs;

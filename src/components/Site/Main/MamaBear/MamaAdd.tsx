@@ -2,23 +2,25 @@ import React, {Component} from 'react';
 import { Form, FormGroup, FormText, Label, Input, Button, InputGroup,  InputGroupAddon } from "reactstrap";
 
 
-type babyVariables = {
+type MamaVariables = {
     brand: string,
     title: string,
     price: string,
     store: string,
-    photo: string
-
+    photo: string,
+    loading: boolean
 }
+
+
 
 interface MamaProps  {
 token: string
+
 }
 
 
-const loading = this.state.loading;//string
 
-class MamaAdd extends Component <MamaProps, babyVariables> {
+class MamaAdd extends Component <MamaProps, MamaVariables> {
     constructor(props: MamaProps) {
         super(props);
         this.state = {
@@ -26,17 +28,20 @@ class MamaAdd extends Component <MamaProps, babyVariables> {
             title: "",
             price: "",
             store: "",
-            photo: ""
+            photo: "",
+            loading: false
+
           }
         }
 
 
 uploadImage = async (e:React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTMLFormElement>)  => {
-    const files = e.target.files 
+    const target = (e.target as HTMLInputElement);
+    const files: File = (target.files as FileList) [0];
     const data = new FormData()
-    data.append('file', files[0])
+    data.append('file', files)
     data.append('upload_preset', 'thePicCloud')
-    this.setState({Loading: true})
+    this.setState({loading: true})
     const res = await fetch(
     'https://api.cloudinary.com/v1_1/dqaf1fih0/image/upload',
     {
@@ -49,7 +54,7 @@ uploadImage = async (e:React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTM
   
   this.setState({photo: file.secure_url})
   console.log(file.secure_url)
-  this.setState({Loading : false})
+  this.setState({loading : false})
   
   }
 
@@ -164,11 +169,11 @@ handleSubmit = (e: React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTMLFor
 
          <FormGroup>
       <FormText color="secondary">
-        <Label for="photoUrl">Photo of Insured's Valuable</Label>
-        <Input type="file" name="file" placeholder="upload an image" onChange={uploadImage} />
+        <Label for="photoUrl">Photo of the Product</Label>
+        <Input type="file" name="file" placeholder="upload an image" onChange={this.uploadImage} />
         <br />
 
-        {loading ? (
+        {this.state.loading ? (
           <h3> Loading...</h3>
         ) : (
         <img src={this.state.photo} style={{width: '300px'}} />

@@ -1,6 +1,5 @@
-import { render } from "@testing-library/react";
 import React, { Component } from "react";
-import { Form, FormGroup, Label, Input, Button } from "reactstrap";
+import { Form, FormGroup, Label, Input, Button, } from "reactstrap";
 //import APIURL from "../../helpers/environment"
 
 type SignUpVariables = {
@@ -11,6 +10,8 @@ type SignUpVariables = {
 
 type SignUpProps = {
 updateToken: (newToken: string) => void
+toggle: () => void
+
 }
 
 class Signup extends Component<SignUpProps, SignUpVariables> {
@@ -18,6 +19,8 @@ class Signup extends Component<SignUpProps, SignUpVariables> {
     super(props);
     this.state = { email: "", password: "", role: "" };
   }
+
+
 
   handleSubmit = (e: React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -32,6 +35,7 @@ class Signup extends Component<SignUpProps, SignUpVariables> {
       .then((data) => {
     console.log(data);
         this.props.updateToken(data.sessionToken);
+        this.props.toggle();
       
       });
   };
@@ -40,6 +44,7 @@ class Signup extends Component<SignUpProps, SignUpVariables> {
       <div>
         <h1>Sign Up</h1>
         <Form onSubmit={this.handleSubmit}>
+
           <FormGroup>
             <Label htmlFor="email">Email</Label>
             <Input
@@ -50,6 +55,7 @@ class Signup extends Component<SignUpProps, SignUpVariables> {
               required
             />
           </FormGroup>
+
           <FormGroup>
             <Label htmlFor="password">Password</Label>
             <Input
@@ -60,7 +66,24 @@ class Signup extends Component<SignUpProps, SignUpVariables> {
               required
             />
           </FormGroup>
-           <FormGroup>
+
+           <FormGroup tag="fieldset">
+        <legend>Role</legend>
+        <FormGroup check>
+          <Label check>
+            <Input type="radio" name="radio1" />{' '}
+            Subscriber
+          </Label>
+        </FormGroup>
+
+        <FormGroup check>
+          <Label check>
+            <Input type="radio" name="radio1" />{' '}
+            Admin
+          </Label>
+        </FormGroup>
+
+           {/*<FormGroup>
             <Label htmlFor="role">Role</Label>
             <Input
               onChange={(e) => this.setState({role: e.target.value})}
@@ -68,7 +91,8 @@ class Signup extends Component<SignUpProps, SignUpVariables> {
               value={this.state.role}
               required
             />
-          </FormGroup>
+           </FormGroup>*/}
+           </FormGroup>
           <Button type="submit">Signup</Button>
         </Form>
       </div>

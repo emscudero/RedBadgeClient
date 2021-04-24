@@ -12,6 +12,7 @@ type UserVariables = {
 
 type LoginProps = {
 updateToken: (newToken: string) => void
+toggle: () => void
 }
 
 class Login extends Component<LoginProps, UserVariables> {
@@ -34,6 +35,7 @@ class Login extends Component<LoginProps, UserVariables> {
       .then((response) => response.json())
       .then((data) => {
         this.props.updateToken(data.sessionToken);
+          this.props.toggle();
       
       });
   };

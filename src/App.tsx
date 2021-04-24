@@ -5,16 +5,20 @@ import { BrowserRouter as Router,
   Switch,
   Route} from "react-router-dom";
 import Header from "./components/Site/Header";
-import Footer from "./components/Site/Footer";
-
+//import Footer from "./components/Site/Footer";
 import Auth from "./components/Auth/Auth";
 
 type AppVariables = {
   sessionToken: string
+
 }
 
-class App extends Component<{}, AppVariables> {
-  constructor(props: {}) {
+interface AppProps{
+  
+}
+
+class App extends Component<AppProps, AppVariables> {
+  constructor(props: AppProps) {
     super(props);
     this.state = {sessionToken: ""};
   }
@@ -46,7 +50,7 @@ class App extends Component<{}, AppVariables> {
   return (
     <div>
       <Router>
-        {/*<Header logout={this.clearToken} token={this.state.sessionToken} />*/}
+        <Header updateToken = {this.updateToken} logout={this.clearToken} token={this.state.sessionToken} />
       {this.protectedViews()}
     
      </Router>
