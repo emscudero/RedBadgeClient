@@ -1,14 +1,19 @@
 import React, {Component} from 'react';
-import { Form, FormGroup, FormText, Label, Input, Button, InputGroup,  InputGroupAddon } from "reactstrap";
+import { Form, FormGroup, FormText, Label, Input, Button, InputGroup,  InputGroupAddon, Modal, ModalHeader,
+  ModalBody,
+  ModalFooter } from "reactstrap";
+  import { Link } from "react-router-dom";
 
 
 type MamaVariables = {
     brand: string,
     title: string,
+    quantity: string,
     price: string,
     store: string,
     photo: string,
-    loading: boolean
+    loading: boolean,
+     modal: boolean
 }
 
 
@@ -26,17 +31,19 @@ class MamaAdd extends Component <MamaProps, MamaVariables> {
         this.state = {
             brand: "",
             title: "",
+            quantity: "",
             price: "",
             store: "",
             photo: "",
-            loading: false
+            loading: false,
+            modal: false
 
           }
         }
 
 
 uploadImage = async (e:React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTMLFormElement>)  => {
-    const target = (e.target as HTMLInputElement);
+  const target = (e.target as HTMLInputElement);
     const files: File = (target.files as FileList) [0];
     const data = new FormData()
     data.append('file', files)
@@ -58,9 +65,15 @@ uploadImage = async (e:React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTM
   
   }
 
+reload = () => window.location.reload();
+toggle = () => {
+    if (this.state.modal) {
+      this.setState({brand: ''})
+    }
+    this.setState({modal: false})
+    }
 
-
-
+/*componentDidMount(){*/
 handleSubmit = (e: React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     fetch("http://localhost:3000/mamalist/create", {
@@ -69,6 +82,7 @@ handleSubmit = (e: React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTMLFor
         babylist: {
           brand:this.state.brand,
          title:this.state.title,
+         quantity:this.state.quantity,
          price:this.state.price,
          store:this.state.store,
           photo:this.state.photo,
@@ -84,6 +98,7 @@ handleSubmit = (e: React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTMLFor
       .then((mamaList) => {
     this.setState({brand: ''});
       this.setState({title: ''});
+      this.setState({quantity: ''});
      this.setState({price: ''});
      this.setState({store: ''});
      this.setState({photo: ''});
@@ -131,6 +146,17 @@ handleSubmit = (e: React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTMLFor
         <Input type="textarea" name="title" id="title" placeholder="Title of Item" />
       </FormGroup>
 
+  <FormGroup>
+        <Label for="exampleSelect">Quantity</Label>
+        <Input type="select" name="select" id="exampleSelect">
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+        </Input>
+      </FormGroup>
+
       <InputGroup>
           <InputGroupAddon addonType="prepend">$</InputGroupAddon>
           <Input
@@ -145,9 +171,9 @@ handleSubmit = (e: React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTMLFor
           <InputGroupAddon addonType="append">.00</InputGroupAddon>
         </InputGroup>
 
-
+<br/>
       <FormGroup>
-        <Label for="store">Store</Label>
+        <Label for="store">Choose the Store</Label>
         <Input type="select" name="select" id="store">
           <option>Target</option>
           <option>Walmart</option>
@@ -157,15 +183,6 @@ handleSubmit = (e: React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTMLFor
         </Input>
       </FormGroup>
     
-
-      <FormGroup>
-        <Label for="exampleFile">File</Label>
-        <Input type="file" name="file" id="exampleFile" />
-        <FormText color="muted">
-          This is some placeholder block-level help text for the above input.
-          It's a bit lighter and easily wraps to a new line.
-        </FormText>
-        </FormGroup>
 
          <FormGroup>
       <FormText color="secondary">
@@ -179,16 +196,40 @@ handleSubmit = (e: React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTMLFor
         <img src={this.state.photo} style={{width: '300px'}} />
         )}
         </FormText>
-        <br/>
-        <br/>
-        <Button outline color="warning">Submit</Button>
+      
+        
       </FormGroup>
-      <br />
-      <br />
+     
     
-     <Button>Submit {this.handleSubmit}</Button>
+     <Button outline color="secondary">Submit</Button>
     </Form>
 
+
+
+ <Modal isOpen={this.state.modal} toggle={this.toggle}>
+        <ModalHeader toggle={this.toggle}>Success!</ModalHeader>
+        <ModalBody>
+        {/* {'Your product has been logged'} */}
+
+          {'The following product has been added:'}
+          <br />
+          <strong>
+      {this.state.title}
+          </strong>
+          <br />
+          {'What would you like to do next?'}
+        </ModalBody>
+        <ModalFooter>
+          <Button color="primary">
+            <Link to="/mamatable" className="inactive">
+              View my products
+            </Link>
+          </Button>
+          <Button color="primary" onClick={this.reload}>
+            Add Another
+          </Button>
+        </ModalFooter>
+      </Modal>
 
     </div>
 

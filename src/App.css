@@ -2,37 +2,92 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
+.header {
   background-color: #BD8B9C;
+  font-family: 'Tangerine', cursive;
+}
+
+.brand:hover {
+  color: #AF125A;
+}
+
+.inactive {
+  color: #87F1FF;
+}
+
+.inactive:hover {
+  color: #AF125A;
+}
+
+.brand {
+  color: #582B11;
+}
+
+.home {
+ text-align: center;
+ 
+}
+
+body {
+  background: linear-gradient(#C0F5FA);
+  font-family: 'Tangerine', cursive;
+  color: #87F1FF;
+  background-repeat: no-repeat;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.jumbotron h1 {
+  font-family: 'Tangerine', cursive;
+  color: #AF125A;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.jumbotron h1 img {
+  width: 11%;
+}
+
+.modal {
+  font-family: 'Tangerine', cursive;
+  color: #BD8B9C;
+}
+
+.label {
+  font-weight: bold;
+}
+
+.aboutus {
+  text-align: center;
+  font-weight: bold;
+  color: #582B11;
+}
+
+.display-2 {
+  color: #F7F7F7;
+  text-align: center;
+  margin: 1em auto 1em auto;
+  width: 84%;
+}
+
+.card {
+  width: 15%;
+  height: 80%;
+  padding: 25px 50px 25px 50px;
+}
+
+.table {
+  background-color: #BD8B9C;
+  margin-top: 150px;
+}
+
+h1 {
+  text-align: center;
+}
+
+.formgroup {
+  color: #BD8B9C;
+  width: 84%;
+  text-align: left;
+  background-color: rgba(0, 0, 0, 0);
+  margin: 2em auto 4em auto;
+  max-height: 20em;
+  overflow: auto;
 }

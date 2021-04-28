@@ -1,10 +1,14 @@
 import React, { Component} from "react";
-import {Table} from "reactstrap";
+import { Card, CardImg, CardText, CardBody,
+  CardTitle, CardSubtitle, Button} from "reactstrap";
+
 
 
 
 interface BabyProps  {
-token: string
+token: string,
+
+
 }
 
 interface BabyState {
@@ -43,36 +47,19 @@ fetchBabyList = () => {
     render() { 
         return ( 
 <div>
-            <Table hover>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Brand</th>
-          <th>Title</th>
-          <th>Price</th>
-          <th>Store</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td></td>
-          
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td></td>
-          <td>d</td>
-          <td></td>
-        </tr>
-      </tbody>
-    </Table>
+           <Card >
+        <CardImg top width="100%" src="" alt="Card image cap" />
+        <CardBody>
+          <CardTitle tag="h5">Title of Product</CardTitle>
+          <CardSubtitle tag="h6" className="mb-2 text-muted">Brand</CardSubtitle>
+          <CardText>Price Store</CardText>
+          <Button>Add</Button>
+          <Button>Edit</Button>
+          <Button>Delete</Button>
+        </CardBody>
+      </Card>
+        
+
     </div>
   );
 }

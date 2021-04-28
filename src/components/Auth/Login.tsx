@@ -46,7 +46,7 @@ class Login extends Component<LoginProps, UserVariables> {
         <h1>Login</h1>
         <Form onSubmit={this.handleSubmit}>
           <FormGroup>
-            <Label htmlFor="email">Email</Label>
+            <Label htmlFor="email" class="label">Email</Label>
             <Input
               onChange={(e) => this.setState({email: e.target.value})}
               name="email"
@@ -55,7 +55,7 @@ class Login extends Component<LoginProps, UserVariables> {
             />
           </FormGroup>
           <FormGroup>
-            <Label htmlFor="password">Password</Label>
+            <Label htmlFor="password" class="label">Password</Label>
             <Input
               onChange={(e) => this.setState({password: e.target.value})}
               name="password"
@@ -64,7 +64,7 @@ class Login extends Component<LoginProps, UserVariables> {
               required
             />
           </FormGroup>
-          <FormGroup>
+          {/*<FormGroup>
             <Label htmlFor="role">Role</Label>
             <Input
               onChange={(e) => this.setState({role: e.target.value})}
@@ -72,7 +72,7 @@ class Login extends Component<LoginProps, UserVariables> {
               value={this.state.role}
               required
             />
-          </FormGroup>
+          </FormGroup>*/}
           <Button type="submit">Login</Button>
         </Form>
       </div>

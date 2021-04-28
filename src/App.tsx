@@ -5,8 +5,11 @@ import { BrowserRouter as Router,
   Switch,
   Route} from "react-router-dom";
 import Header from "./components/Site/Header";
-//import Footer from "./components/Site/Footer";
+import Footer from "./components/Site/Footer";
 import Auth from "./components/Auth/Auth";
+import Home from "./components/Site/Main/Home";
+import AboutUs from "./components/Site/Main/AboutUs";
+
 
 type AppVariables = {
   sessionToken: string
@@ -43,6 +46,8 @@ class App extends Component<AppProps, AppVariables> {
     );
   };
   
+ 
+
 
   render() {
 
@@ -52,11 +57,24 @@ class App extends Component<AppProps, AppVariables> {
       <Router>
         <Header updateToken = {this.updateToken} logout={this.clearToken} token={this.state.sessionToken} />
       {this.protectedViews()}
-    
+      {/*<Route exact path='/'>
+      {Admin = true ? <Redirect to="/home" /> : <home />
+    ) : (
+      <Redirect to ="/login" /> : <login />
+    )}
+    </Route>*/}
      </Router>
     </div>
   );
 }
 }
 
+
+
+{/*{!Auth ? (
+  component home / about us
+) : (
+everything else
+)
+}  */}
 export default App;

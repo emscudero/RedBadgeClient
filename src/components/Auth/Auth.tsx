@@ -22,7 +22,7 @@ this.state= {modal: true, showLogin: true, buttonText: "Already a User?" };}
 
 
  handleToggle =() => {
-   this.setState({ modal: false})
+   this.setState({ modal: !this.state.modal})
  }
 
   handleClick= () => {
@@ -41,7 +41,7 @@ this.state= {modal: true, showLogin: true, buttonText: "Already a User?" };}
   return (
     <div>
            <Form onSubmit={(e) => e.preventDefault()}>
-        <Modal isOpen={this.state.modal} fade={false} toggle={this.handleToggle}>
+        <Modal isOpen={!this.state.modal} fade={false} toggle={this.handleToggle}>
           <ModalHeader toggle= {this.handleToggle}>Mama Bear's Den</ModalHeader>
           <div className="form-container">
            {this.state.showLogin == true ? (
