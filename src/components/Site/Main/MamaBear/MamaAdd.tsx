@@ -13,7 +13,7 @@ type MamaVariables = {
     store: string,
     photo: string,
     loading: boolean,
-     modal: boolean
+    modal: boolean
 }
 
 
@@ -79,7 +79,7 @@ handleSubmit = (e: React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTMLFor
     fetch("http://localhost:3000/mamalist/create", {
       method: "POST",
       body: JSON.stringify({
-        babylist: {
+        mamalist: {
           brand:this.state.brand,
          title:this.state.title,
          quantity:this.state.quantity,
@@ -88,7 +88,9 @@ handleSubmit = (e: React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTMLFor
           photo:this.state.photo,
     
         },
+        
       }),
+    
       headers: new Headers({
         "Content-Type": "application/json",
         "Authorization": this.props.token,
@@ -118,9 +120,10 @@ handleSubmit = (e: React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTMLFor
 <div>
 
     <Form>
+<Form onSubmit={this.handleSubmit} className="form">
 
         <FormGroup>
-        <Label for="exampleSelectMulti">Brand</Label>
+        <Label className="label" for="exampleSelectMulti">Brand</Label>
         <Input type="select" name="selectMulti" id="exampleSelectMulti" multiple>
           <option>Johnson & Johnson</option>
           <option>Burts Bees</option>
@@ -142,12 +145,12 @@ handleSubmit = (e: React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTMLFor
 
       <FormGroup>
 
-          <Label for="title">Title</Label>
+          <Label className="label" for="title">Title of Product</Label>
         <Input type="textarea" name="title" id="title" placeholder="Title of Item" />
       </FormGroup>
 
   <FormGroup>
-        <Label for="exampleSelect">Quantity</Label>
+        <Label className="label" for="exampleSelect">Quantity</Label>
         <Input type="select" name="select" id="exampleSelect">
           <option>1</option>
           <option>2</option>
@@ -173,7 +176,7 @@ handleSubmit = (e: React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTMLFor
 
 <br/>
       <FormGroup>
-        <Label for="store">Choose the Store</Label>
+        <Label className="label" for="store">Choose the Store</Label>
         <Input type="select" name="select" id="store">
           <option>Target</option>
           <option>Walmart</option>
@@ -186,7 +189,7 @@ handleSubmit = (e: React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTMLFor
 
          <FormGroup>
       <FormText color="secondary">
-        <Label for="photoUrl">Photo of the Product</Label>
+        <Label className="label" for="photoUrl">Photo of the Product</Label>
         <Input type="file" name="file" placeholder="upload an image" onChange={this.uploadImage} />
         <br />
 
@@ -201,35 +204,13 @@ handleSubmit = (e: React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTMLFor
       </FormGroup>
      
     
-     <Button outline color="secondary">Submit</Button>
+     <Button outline color="secondary" >Submit</Button>
+     
     </Form>
 
 
-
- <Modal isOpen={this.state.modal} toggle={this.toggle}>
-        <ModalHeader toggle={this.toggle}>Success!</ModalHeader>
-        <ModalBody>
-        {/* {'Your product has been logged'} */}
-
-          {'The following product has been added:'}
-          <br />
-          <strong>
-      {this.state.title}
-          </strong>
-          <br />
-          {'What would you like to do next?'}
-        </ModalBody>
-        <ModalFooter>
-          <Button color="primary">
-            <Link to="/mamatable" className="inactive">
-              View my products
-            </Link>
-          </Button>
-          <Button color="primary" onClick={this.reload}>
-            Add Another
-          </Button>
-        </ModalFooter>
-      </Modal>
+</Form>
+ 
 
     </div>
 

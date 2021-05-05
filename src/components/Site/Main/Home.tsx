@@ -4,8 +4,20 @@ import image from "./assets/mamabear pic.jpg"
 
 
 
+interface HomeProps  {
+token: string
+}
 
-class Home extends Component {
+interface HomeState {
+
+}
+
+
+class Home extends Component <HomeProps, HomeState>{
+    constructor(props: HomeProps) {
+        super(props);
+        this.state = {  }
+    }
 
 
 style = {width: "700px", border: "solid", color: "#582B11"}

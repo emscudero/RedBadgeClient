@@ -8,15 +8,13 @@ import {
     Label, 
     Input,
     InputGroup,
-    InputGroupAddon,
-    Modal, 
-    ModalBody, 
-    ModalHeader
+    InputGroupAddon
 } from 'reactstrap';
 
 type BabyVariables = {
    brand: string,
     title: string,
+    quantity: string,
     price: string,
     store: string, 
     photo: string,
@@ -34,6 +32,7 @@ class BabyEdit extends Component<BabyProps, BabyVariables> {
         this.state = { 
            brand: "",
             title: "",
+            quantity: "",
             price: "", 
             store: "",
             photo: "",
@@ -74,6 +73,7 @@ handleSubmit = (e: React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTMLFor
         babylist: {
           brand:this.state.brand,
          title:this.state.title,
+        quantity:this.state.quantity,
          price:this.state.price,
          store:this.state.store,
          photo:this.state.photo,
@@ -89,6 +89,7 @@ handleSubmit = (e: React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTMLFor
       .then((babyList) => {
     this.setState({brand: ''});
       this.setState({title: ''});
+       this.setState({quantity: ''});
      this.setState({price: ''});
      this.setState({store: ''});
      this.setState({photo: ''});
@@ -102,12 +103,9 @@ handleSubmit = (e: React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTMLFor
         return (
             <div>
 
-<Modal isOpen={true}>
 
-            <ModalHeader>Update Item</ModalHeader>
+            <h1>Update Item</h1>
 
-            <ModalBody>
-                <Form onSubmit={this.handleSubmit}>
 
                 <Form>
         <FormGroup>
@@ -139,6 +137,19 @@ handleSubmit = (e: React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTMLFor
         <Label for="title">Title</Label>
         <Input type="textarea" name="title" id="title" placeholder="Title of Item" />
       </FormGroup>
+
+ <FormGroup>
+        <Label for="exampleSelect">Quantity</Label>
+        <Input type="select" name="select" id="exampleSelect">
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+        </Input>
+      </FormGroup>
+
+
 
       <InputGroup>
           <InputGroupAddon addonType="prepend">$</InputGroupAddon>
@@ -186,9 +197,8 @@ handleSubmit = (e: React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTMLFor
     
       <Button>Submit {this.handleSubmit}</Button>
     </Form>
-        </Form>
-            </ModalBody>
-        </Modal>
+      
+        
 
            </div>
             

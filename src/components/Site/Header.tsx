@@ -1,113 +1,148 @@
 import React, {Component} from "react";
-import { Navbar, NavbarBrand, NavLink } from "reactstrap";
+import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, Modal } from "reactstrap";
 import { Route, Link, Switch, Redirect } from "react-router-dom";
 import AboutUs from "./Main/AboutUs";
 import Home from "./Main/Home";
-import BabyTable from "./Main/BabyBear/BabyTable";
-import MamaTable  from "./Main/MamaBear/MamaTable";
-import Auth from "../Auth/Auth";
-import BabyAdd from "./Main/BabyBear/BabyAdd";
 import MamaAdd from "./Main/MamaBear/MamaAdd";
+import MamaDelete from "./Main/MamaBear/MamaDelete";
+import MamaTable  from "./Main/MamaBear/MamaTable";
+import BabyAdd from "./Main/BabyBear/BabyAdd";
+import BabyTable from "./Main/BabyBear/BabyTable";
+import BabyDelete from "./Main/BabyBear/BabyDelete";
+import Auth from "../Auth/Auth";
 import Login from "../Auth/Login";
 import Signup from "../Auth/Signup";
 
 
 
 interface AuthProps  {
+
 updateToken: (newToken: string ) => void
 token: string 
 logout: Function
+
 }
 
+type HeaderVariables= {
+  collapsed: boolean,
+  modal: boolean
+}
 
-class Header extends Component <AuthProps, {} >{
+class Header extends Component <AuthProps, HeaderVariables >{
     constructor(props: AuthProps) {
         super(props);
-        this.state = {}
+        this.state = {
+          collapsed: true,
+          modal: false
+        }
+        }
+
+    toggleNavbar= () => {
+          this.setState({collapsed: !this.state.collapsed})
         }
 render() {
 
     return (
+      <div>
          <header>
-      <Navbar className="header">
-        <NavbarBrand href="/" className="brand">
+    <Navbar className="header" >
+        <NavbarBrand href="/home" className="brand">
           Mama Bear's Den
         </NavbarBrand>
-        <NavLink>
-          <Link to="/BabyAdd" className="inactive">
-           Add a Baby Item
-          </Link>
-        </NavLink>
-        <NavLink>
-          <Link to="/MamaAdd" className="inactive">
-          Add a Mama Item
-          </Link>
-        </NavLink>
-        <NavLink>
-          <Link to="/BabyTable" className="inactive">
-           Baby Bear
-          </Link>
-        </NavLink>
-        <NavLink>
-          <Link to="/MamaTable" className="inactive">
-            Mama Bear
-          </Link>
-        </NavLink>
-        <NavLink>
-          <Link to="/aboutus" className="inactive">
-            About Us
-          </Link>
-        </NavLink>
-        <NavLink>
-          <Link to="/aboutus" className="inactive">
-            Login
-          </Link>
-        </NavLink>
-        <NavLink>
-          <Link to="/aboutus" className="inactive">
-           Register
-          </Link>
-        </NavLink>
-        <NavLink>
-          <Link to="/aboutus" className="inactive">
-           LogOut
-          </Link>
-        </NavLink>
-   </Navbar>
 
+         <NavbarToggler onClick={this.toggleNavbar} />
+        <Collapse isOpen={!this.state.collapsed} navbar  >
+          <Nav navbar>
+            <NavItem>
+              <NavLink href="Home" className="inactive">Home</NavLink>
+            </NavItem>
+
+<NavItem>
+              <NavLink href="LatestProducts" className="inactive">Trending Products</NavLink>
+            </NavItem>
+             <NavItem>
+              <NavLink href="BabyTable" className="inactive">See your Baby Products</NavLink>
+            </NavItem>
+    
+            <NavItem>
+              <NavLink href="MamaTable" className="inactive">See your Mama Products</NavLink>
+            </NavItem>
+            <NavItem>
+               
+
+                <NavItem>
+              <NavLink href="AboutUs" className="inactive">About Us</NavLink>
+            </NavItem>
+
+
+            <NavItem>
+              <NavLink href="/" className="inactive">Login</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="Signup" className="inactive">Sign Up</NavLink>
+            </NavItem>
+              <NavLink href="LogOut" className="inactive">Log Out</NavLink>
+            </NavItem>
+           
+          </Nav>
+        </Collapse>
+      </Navbar>
    
-      <div>
         <Switch>
-          <Route exact path="/">
-            <Home />
+         <Route exact path="/home">
+          {localStorage.getItem("token")  ? <Home token={this.props.token}/> :  <Auth updateToken={this.props.updateToken} />}
+           
           </Route>
+
           <Route exact path="/aboutus">
             <AboutUs />
           </Route>
-          <Route exact path="/babyadd">
-             {this.props.token ? <Auth updateToken={this.props.updateToken}/> : <Redirect to = "/babyadd" />}
-            <BabyAdd token={this.props.token}/>
-          </Route>
-          <Route exact path="/mamaadd">
-             {this.props.token  ? <Auth updateToken={this.props.updateToken} /> : <Redirect to="/mamaadd"/> }
-            <MamaAdd token={this.props.token}/>
-          </Route>
-          <Route exact path="/babytable">
-          {this.props.token  ? <Auth updateToken={this.props.updateToken}/> : <Redirect to="/babytable" /> }
-            <BabyTable token={this.props.token} />
-          </Route>
-          <Route exact path="/mamatable">
-          {this.props.token  ? <Auth updateToken={this.props.updateToken} /> : <Redirect to="/mamatable"/> }
-            <MamaTable token={this.props.token}/>
-          </Route>
-          <Route exact path="/login">
-            {/*<Login token={this.props.token}/>*/}
+  
+  <Route exact path="/mamaAdd">
+          {localStorage.getItem("token")  ? <MamaAdd token={this.props.token}/> : <Auth updateToken={this.props.updateToken} />}
             
           </Route>
-        </Switch>
-      </div>
-    </header>
 
+  <Route exact path="/mamatable">
+          {localStorage.getItem("token")  ? <MamaTable token={this.props.token}/> : <Auth updateToken={this.props.updateToken} /> }
+            
+          </Route>
+
+  <Route exact path="/mamadelete">
+          {localStorage.getItem("token")  ? <MamaDelete token={this.props.token}/> : <Auth updateToken={this.props.updateToken} /> }
+        
+          </Route>
+
+          <Route exact path="/babyadd">
+          {localStorage.getItem("token")  ? <BabyAdd token={this.props.token} /> : <Auth updateToken={this.props.updateToken}/> }
+          
+          </Route>
+          
+          <Route exact path="/babytable">
+          {localStorage.getItem("token")  ?  <BabyTable token={this.props.token}/> :  <Auth updateToken={this.props.updateToken} /> }
+            
+          </Route>
+
+  <Route exact path="/babydelete">
+          {localStorage.getItem("token")  ? <BabyTable token={this.props.token}/> : <Auth updateToken={this.props.updateToken} /> }
+            
+          </Route>
+
+
+<Route exact path="/">
+          {localStorage.getItem("token")  ? <Auth updateToken={this.props.updateToken} /> : <Login token={this.props.token} updateToken={this.props.updateToken}/> }
+
+          </Route>
+
+    <Route exact path="/signup">
+          {localStorage.getItem("token")  ? <Auth updateToken={this.props.updateToken} /> : <Signup token={this.props.token} updateToken={this.props.updateToken}/>}
+            
+          </Route>
+
+        </Switch>
+    
+    </header>
+</div>
     );
 };
 }

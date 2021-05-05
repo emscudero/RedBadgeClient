@@ -3,8 +3,13 @@
 }
 
 .header {
-  background-color: #BD8B9C;
-  font-family: 'Tangerine', cursive;
+  background-color: #BD8B9C !important;
+  background-image: url("");
+  font-family: 'Lobster', cursive;
+}
+
+.nav-bar-button {
+  border: 2px, solid black;
 }
 
 .brand:hover {
@@ -24,30 +29,29 @@
 }
 
 .home {
- text-align: center;
- 
+  text-align: center;
+  background-color: grey;
 }
 
 body {
-  background: linear-gradient(#C0F5FA);
-  font-family: 'Tangerine', cursive;
+  background: #582B11!important;
+  font-family: 'Montserrat', sans-serif;
   color: #87F1FF;
   background-repeat: no-repeat;
   min-height: 100vh;
 }
 
 .jumbotron h1 {
-  font-family: 'Tangerine', cursive;
+  font-family: 'Lobster';
   color: #AF125A;
+}
+
+.jumbotron {
+  background: grey;
 }
 
 .jumbotron h1 img {
   width: 11%;
-}
-
-.modal {
-  font-family: 'Tangerine', cursive;
-  color: #BD8B9C;
 }
 
 .label {
@@ -80,14 +84,53 @@ body {
 
 h1 {
   text-align: center;
+  color: #C0F5FA;
+   font-family: 'Montserrat', sans-serif
 }
 
 .formgroup {
   color: #BD8B9C;
   width: 84%;
-  text-align: left;
+  text-align: center;
   background-color: rgba(0, 0, 0, 0);
   margin: 2em auto 4em auto;
   max-height: 20em;
   overflow: auto;
+}
+
+.card-body {
+  background-color: #BD8B9C;
+  width: 100%;
+}
+
+.card {
+  background-color: #C0F5FA !important;
+  text-align: center;
+}
+
+p {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.label {
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.form {
+  width: 50%;
+  height: 50%;
+  margin: 500px;
+  border: 2px, solid, #C0F5FA;
+  background-color: #AF125A;
+  padding: 10px;
+}
+
+.card {
+  padding: 10px;
+  margin: 500px;
+}
+
+#table {
+ padding: 100px 5px;
 }

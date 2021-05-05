@@ -17,6 +17,7 @@ type AppVariables = {
 }
 
 interface AppProps{
+
   
 }
 
@@ -56,7 +57,7 @@ class App extends Component<AppProps, AppVariables> {
     <div>
       <Router>
         <Header updateToken = {this.updateToken} logout={this.clearToken} token={this.state.sessionToken} />
-      {this.protectedViews()}
+      {/*{this.protectedViews()}
       {/*<Route exact path='/'>
       {Admin = true ? <Redirect to="/home" /> : <home />
     ) : (

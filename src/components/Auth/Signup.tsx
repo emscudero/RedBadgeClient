@@ -10,7 +10,7 @@ type SignUpVariables = {
 
 type SignUpProps = {
 updateToken: (newToken: string) => void
-toggle: () => void
+token: string
 
 }
 
@@ -35,7 +35,7 @@ class Signup extends Component<SignUpProps, SignUpVariables> {
       .then((data) => {
     console.log(data);
         this.props.updateToken(data.sessionToken);
-        this.props.toggle();
+      
       
       });
   };
@@ -46,7 +46,7 @@ class Signup extends Component<SignUpProps, SignUpVariables> {
         <Form onSubmit={this.handleSubmit}>
 
           <FormGroup>
-            <Label htmlFor="email">Email</Label>
+            <Label className= "label" htmlFor="email">Email</Label>
             <Input
               onChange={(e) => this.setState({email: e.target.value})}
               type="email"
@@ -57,7 +57,7 @@ class Signup extends Component<SignUpProps, SignUpVariables> {
           </FormGroup>
 
           <FormGroup>
-            <Label htmlFor="password">Password</Label>
+            <Label className= "label" htmlFor="password">Password</Label>
             <Input
               onChange={(e) => this.setState({password: e.target.value})}
               name="password"
@@ -68,16 +68,16 @@ class Signup extends Component<SignUpProps, SignUpVariables> {
           </FormGroup>
 
            <FormGroup tag="fieldset">
-        <legend>Role</legend>
+        <legend className= "label">Role</legend>
         <FormGroup check>
-          <Label check>
+          <Label check className= "label">
             <Input type="radio" name="radio1" />{' '}
             Subscriber
           </Label>
         </FormGroup>
 
         <FormGroup check>
-          <Label check>
+          <Label check className= "label">
             <Input type="radio" name="radio1" />{' '}
             Admin
           </Label>

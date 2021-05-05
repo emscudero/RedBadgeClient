@@ -14,7 +14,6 @@ type babyVariables = {
     store: string, 
     photo: string,
     loading: boolean
-    modal: boolean,
 }
 
 
@@ -36,7 +35,6 @@ class BabyAdd extends Component <BabyProps, babyVariables> {
             store: "",
             photo: "",
             loading: false,
-            modal: false
           }
         }
 
@@ -64,12 +62,7 @@ class BabyAdd extends Component <BabyProps, babyVariables> {
   }
 
  reload = () => window.location.reload();
-toggle = () => {
-    if (this.state.modal) {
-      this.setState({brand: ''})
-    }
-    this.setState({modal: false})
-    }
+
 
 handleSubmit = (e:React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -91,7 +84,7 @@ handleSubmit = (e:React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTMLForm
         "Authorization": this.props.token,
       }),
     })
-      .then((res) => res.json())
+      .then((res) => res.json()) 
       .then((babyList) => {
     this.setState({brand: ''});
       this.setState({title: ''});
@@ -105,13 +98,14 @@ handleSubmit = (e:React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTMLForm
     };
 
     render() { 
-      console.log(this.handleSubmit);
+      
         return (  
 
             <div>
                 <Form>
+                 <Form onSubmit={this.handleSubmit} className="form">
         <FormGroup>
-        <Label for="exampleSelectMulti">Brand</Label>
+        <Label className="label" for="exampleSelectMulti">Brand</Label>
         <Input type="select" name="selectMulti" id="exampleSelectMulti" multiple>
           <option>Johnson & Johnson</option>
           <option>Delta</option>
@@ -137,12 +131,12 @@ handleSubmit = (e:React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTMLForm
 
       <FormGroup>
 
-          <Label for="title">Title of Product</Label>
+          <Label className="label" for="title">Title of Product</Label>
         <Input type="textarea" name="title" id="title" placeholder="Title of Item" />
       </FormGroup>
 
       <FormGroup>
-        <Label for="exampleSelect">Quantity</Label>
+        <Label className="label" for="exampleSelect">Quantity</Label>
         <Input type="select" name="select" id="exampleSelect">
           <option>1</option>
           <option>2</option>
@@ -166,7 +160,7 @@ handleSubmit = (e:React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTMLForm
         </InputGroup>
 <br/>
       <FormGroup>
-        <Label for="store">Choose the Store </Label>
+        <Label className="label" for="store">Choose the Store </Label>
         <Input type="select" name="select" id="store">
           <option>Target</option>
           <option>Walmart</option>
@@ -178,7 +172,7 @@ handleSubmit = (e:React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTMLForm
 
       <FormGroup>
       <FormText color="secondary">
-        <Label for="photoUrl">Photo of the Product</Label>
+        <Label className="label" for="photoUrl">Photo of the Product</Label>
         <Input type="file" name="file" placeholder="upload an image" onChange={this.uploadImage} />
         <br />
 
@@ -196,34 +190,7 @@ handleSubmit = (e:React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTMLForm
     
      <Button outline color="secondary">Submit</Button>
     </Form>
-
-
-{/*Modal for adding*/}
-
-    <Modal isOpen={this.state.modal} toggle={this.toggle}>
-        <ModalHeader toggle={this.toggle}>Success!</ModalHeader>
-        <ModalBody>
-        {/* {'Your product has been logged'} */}
-
-          {'The following product has been added:'}
-          <br />
-          <strong>
-      {this.state.title}
-          </strong>
-          <br />
-          {'What would you like to do next?'}
-        </ModalBody>
-        <ModalFooter>
-          <Button color="primary">
-            <Link to="/babytable" className="inactive">
-              View my products
-            </Link>
-          </Button>
-          <Button color="primary" onClick={this.reload}>
-            Add Another
-          </Button>
-        </ModalFooter>
-      </Modal>
+</Form>
     </div>
            
 

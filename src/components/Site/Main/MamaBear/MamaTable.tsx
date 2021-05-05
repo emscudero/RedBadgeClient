@@ -1,10 +1,15 @@
 import React, { Component} from "react";
-import {Table} from "reactstrap";
+import { Link } from "react-router-dom";
+import {Card, CardImg, CardText, CardBody,
+  CardTitle, CardSubtitle, Button} from "reactstrap";
+  import MamaAdd from "./MamaAdd";
 
 
 
 interface MamaProps  {
 token: string
+
+
 }
 
 interface MamaState {
@@ -20,7 +25,7 @@ class MamaTable extends Component <MamaProps, MamaState>{
     fetchMamaList = () => {
       let localToken = localStorage.getItem("token")
       localToken = localToken ? localToken: ""
-  fetch("http://localhost:3000/babylist/", {
+  fetch("http://localhost:3000/mamalist/", {
             method: "GET",
             headers: new Headers ({
                 "Content-Type": "application/json",
@@ -40,46 +45,33 @@ class MamaTable extends Component <MamaProps, MamaState>{
         return (  
 <div>
 
-  <h1>Your Products </h1>
-            <Table hover>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Brand</th>
-          <th>Title</th>
-          <th>Price</th>
-          <th>Store</th>
-          <th>Item</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-          <td>@twitter</td>
-          <td>Photo</td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-          <td>@twitter</td>
-          <td>Photo</td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td>Larry</td>
-          <td>the Bird</td>
-          <td>@twitter</td>
-          <td>@twitter</td>
-          <td>Photo</td>
-        </tr>
-    
-      </tbody>
-    </Table>
+   <h1 id="table">Your Products </h1>
+           <Card  >
+        <CardImg top width="100%" src="https://images-na.ssl-images-amazon.com/images/I/81bfst2%2B2SL._SL1500_.jpg" alt="Card image cap"  />
+        <CardBody className= "card-body">
+          <CardTitle tag="h5">Title</CardTitle>
+          <CardSubtitle tag="h6" className="mb-2 text-muted">Brand</CardSubtitle>
+          <CardText>Price Store</CardText>
+          <Button> 
+          <Link to="/mamaadd" className="inactive" id="add-button">
+             Add
+            </Link>
+            </Button>
+            
+             <Button>
+            <Link to="/mamaedit" className="inactive" id="edit-button">
+            Edit
+            </Link>
+            </Button>
+
+          <Button>
+            <Link to="/mamadelete" className="inactive" id="delete-button">
+           Delete
+            </Link>
+            </Button>
+
+        </CardBody>
+      </Card>
     </div>
 
         );

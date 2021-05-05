@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Form, FormGroup, Label, Input, Button } from "reactstrap";
+import { Form, FormGroup, Label, Input, Button,Card, CardText, CardBody, CardLink,
+  CardTitle, CardSubtitle } from "reactstrap";
 //import APIURL from "../../helpers/environment"
 
 
@@ -11,8 +12,8 @@ type UserVariables = {
 }
 
 type LoginProps = {
-updateToken: (newToken: string) => void
-toggle: () => void
+updateToken: (newToken: string) => void,
+token: string
 }
 
 class Login extends Component<LoginProps, UserVariables> {
@@ -35,7 +36,7 @@ class Login extends Component<LoginProps, UserVariables> {
       .then((response) => response.json())
       .then((data) => {
         this.props.updateToken(data.sessionToken);
-          this.props.toggle();
+          {/*this.props.toggle();*/}
       
       });
   };
@@ -43,10 +44,12 @@ class Login extends Component<LoginProps, UserVariables> {
   render() {
     return (
       <div>
+      
+         
         <h1>Login</h1>
         <Form onSubmit={this.handleSubmit}>
           <FormGroup>
-            <Label htmlFor="email" class="label">Email</Label>
+            <Label htmlFor="email" className="label">Email</Label>
             <Input
               onChange={(e) => this.setState({email: e.target.value})}
               name="email"
@@ -55,7 +58,7 @@ class Login extends Component<LoginProps, UserVariables> {
             />
           </FormGroup>
           <FormGroup>
-            <Label htmlFor="password" class="label">Password</Label>
+            <Label htmlFor="password" className="label">Password</Label>
             <Input
               onChange={(e) => this.setState({password: e.target.value})}
               name="password"
