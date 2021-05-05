@@ -17,6 +17,7 @@ import {
 type MamaVariables = {
    brand: string,
     title: string,
+    quantity: string,
     price: string,
     store: string, 
     photo: string,
@@ -34,6 +35,7 @@ class MamaEdit extends Component<MamaProps, MamaVariables> {
         this.state = { 
            brand: "",
             title: "",
+            quantity: "",
             price: "", 
             store: "",
             photo: "",
@@ -87,11 +89,7 @@ handleSubmit = (e: React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTMLFor
     })
     .then((res) => res.json())
       .then((mamaList) => {
-    this.setState({brand: ''});
-      this.setState({title: ''});
-     this.setState({price: ''});
-     this.setState({store: ''});
-     this.setState({photo: ''});
+   this.setState({brand: '', title: '', quantity: '', price: '', store: '', photo: ''});
     
         console.log(mamaList);
       })

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import {Card, CardImg, CardText, CardBody,
   CardTitle, CardSubtitle, Button} from "reactstrap";
   import MamaAdd from "./MamaAdd";
+  import { Redirect } from "react-router-dom";
 
 
 
@@ -12,14 +13,22 @@ token: string
 
 }
 
-interface MamaState {
-
+type mamaVariables = {
+mamalist: [],
+list: []
 }
 
-class MamaTable extends Component <MamaProps, MamaState>{
+class MamaTable extends Component <MamaProps, mamaVariables>{
     constructor(props: MamaProps) {
         super(props);
-        this.state = {  }
+        this.state = { 
+          mamalist: [],
+          list: []
+         }
+    }
+
+    componentWillMount(){
+      this.fetchMamaList();
     }
 
     fetchMamaList = () => {
@@ -33,11 +42,16 @@ class MamaTable extends Component <MamaProps, MamaState>{
             })
         })
         .then((res) => res.json())
-        .then((mamaList) => {
-            this.setState({mamaList: ""});
-            console.log(this.props.token)
+        .then((mamaListEntry) => {
+          console.log(mamaListEntry)
+            this.setState({
+              mamalist: mamaListEntry
+            });
+            
         })
     }
+
+  
 
 
 
@@ -46,12 +60,18 @@ class MamaTable extends Component <MamaProps, MamaState>{
 <div>
 
    <h1 id="table">Your Products </h1>
+
+   {((this.fetchMamaList === undefined) || this.fetchMamaList.length == 0 )? <Redirect to ="MamaAdd"/> : (this.fetchMamaList) && <Redirect to ="/MamaTable"/>}
+    {this.state.mamalist.map((mamalist: any) => (
            <Card  >
-        <CardImg top width="100%" src="https://images-na.ssl-images-amazon.com/images/I/81bfst2%2B2SL._SL1500_.jpg" alt="Card image cap"  />
+             
+        <CardImg top width="100%" src={mamalist.photo} alt="Card image cap"  />
         <CardBody className= "card-body">
-          <CardTitle tag="h5">Title</CardTitle>
-          <CardSubtitle tag="h6" className="mb-2 text-muted">Brand</CardSubtitle>
-          <CardText>Price Store</CardText>
+           <CardTitle tag="h5">Brand: {mamalist.brand}</CardTitle>
+          <CardSubtitle tag="h5" className="mb-2 text-muted">Name of item: {mamalist.title}</CardSubtitle>
+          <CardText>Store: {mamalist.store} </CardText>
+            <CardText>Quantity: {mamalist.quantity} </CardText>
+              <CardText>${mamalist.price}</CardText>
           <Button> 
           <Link to="/mamaadd" className="inactive" id="add-button">
              Add
@@ -72,6 +92,7 @@ class MamaTable extends Component <MamaProps, MamaState>{
 
         </CardBody>
       </Card>
+      ))  }
     </div>
 
         );

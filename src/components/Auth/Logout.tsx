@@ -1,32 +1,35 @@
 import * as React from 'react';
 import { Component } from 'react';
+import {Redirect} from "react-router-dom";
+import{Button} from "reactstrap";
 
-
-
-
-type UserVariables = {
-  email: string,
-  password:  string,
-  role: string
-}
-
-type LoginProps = {
-updateToken: (newToken: string) => void,
+type LogoutProps = {
 token: string
 }
 
-class Logout extends Component<LoginProps, UserVariables> {
-  constructor(props: LoginProps) {
-    super(props);
-    this.state = { email: "", password: "", role: ""};
+
+class Logout extends Component<LogoutProps, {}> {
+  state = {
+    navigate: false
+  
   }
+
+logout = () => {
+  //localStorage.clear("token");
+  this.setState({ navigate: true});
+}
 
 
 
 render (){
-    return(
-        <div></div>
-    )
+  const { navigate } = this.state;
+
+  if (navigate) {
+    return <Redirect to ="/login" push={true} />;
+  }
+
+  return <Button onClick={this.logout}>Log Out</Button>
+   
 }
 }
 

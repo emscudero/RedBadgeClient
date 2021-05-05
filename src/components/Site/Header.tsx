@@ -60,14 +60,25 @@ render() {
 <NavItem>
               <NavLink href="LatestProducts" className="inactive">Trending Products</NavLink>
             </NavItem>
+
+             <NavItem>
+              <NavLink href="BabyAdd" className="inactive">Add a Baby Product</NavLink>
+            </NavItem>
+            
              <NavItem>
               <NavLink href="BabyTable" className="inactive">See your Baby Products</NavLink>
             </NavItem>
     
+
+      <NavItem>
+              <NavLink href="MamaAdd" className="inactive">Add a Mama Product</NavLink>
+            </NavItem>
+
+
             <NavItem>
               <NavLink href="MamaTable" className="inactive">See your Mama Products</NavLink>
             </NavItem>
-            <NavItem>
+          
                
 
                 <NavItem>
@@ -78,9 +89,12 @@ render() {
             <NavItem>
               <NavLink href="/" className="inactive">Login</NavLink>
             </NavItem>
+
             <NavItem>
               <NavLink href="Signup" className="inactive">Sign Up</NavLink>
             </NavItem>
+
+            <NavItem>
               <NavLink href="LogOut" className="inactive">Log Out</NavLink>
             </NavItem>
            
@@ -124,7 +138,7 @@ render() {
           </Route>
 
   <Route exact path="/babydelete">
-          {localStorage.getItem("token")  ? <BabyTable token={this.props.token}/> : <Auth updateToken={this.props.updateToken} /> }
+          {localStorage.getItem("token")  ? <BabyTable token={this.props.token}/>: <BabyTable token={this.props.token}/> }
             
           </Route>
 

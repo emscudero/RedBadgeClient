@@ -1,15 +1,15 @@
 .App {
   text-align: center;
+  background-color:#582B11;
 }
 
 .header {
-  background-color: #BD8B9C !important;
-  background-image: url("");
+  background-color: #BD8B9C;
   font-family: 'Lobster', cursive;
 }
 
-.nav-bar-button {
-  border: 2px, solid black;
+.navbar-toggler-icon {
+ background-color: #582B11 !important;
 }
 
 .brand:hover {
@@ -34,7 +34,8 @@
 }
 
 body {
-  background: #582B11!important;
+ /* background: #582B11!important;*/
+  background-image: url("https://res.cloudinary.com/dqaf1fih0/image/upload/v1620250487/pine_trees_qcltcn.jpg");
   font-family: 'Montserrat', sans-serif;
   color: #87F1FF;
   background-repeat: no-repeat;
@@ -85,7 +86,7 @@ body {
 h1 {
   text-align: center;
   color: #C0F5FA;
-   font-family: 'Montserrat', sans-serif
+  font-family: 'Montserrat', sans-serif
 }
 
 .formgroup {
@@ -132,5 +133,5 @@ p {
 }
 
 #table {
- padding: 100px 5px;
+  padding: 100px 5px;
 }

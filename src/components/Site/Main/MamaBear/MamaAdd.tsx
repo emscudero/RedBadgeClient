@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import { Form, FormGroup, FormText, Label, Input, Button, InputGroup,  InputGroupAddon, Modal, ModalHeader,
-  ModalBody,
-  ModalFooter } from "reactstrap";
+import { Form, FormGroup, FormText, Label, Input, Button, InputGroup,  InputGroupAddon
+ } from "reactstrap";
   import { Link } from "react-router-dom";
 
 
@@ -39,6 +38,7 @@ class MamaAdd extends Component <MamaProps, MamaVariables> {
             modal: false
 
           }
+           this.handleSubmit = this.handleSubmit.bind(this);
         }
 
 
@@ -73,8 +73,9 @@ toggle = () => {
     this.setState({modal: false})
     }
 
-/*componentDidMount(){*/
-handleSubmit = (e: React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTMLFormElement>) => {
+
+handleSubmit = (e:React.FormEvent) => {
+  let token = this.props.token ? this.props.token : localStorage.getItem("token");
     e.preventDefault();
     fetch("http://localhost:3000/mamalist/create", {
       method: "POST",
@@ -93,17 +94,12 @@ handleSubmit = (e: React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTMLFor
     
       headers: new Headers({
         "Content-Type": "application/json",
-        "Authorization": this.props.token,
+        "Authorization": token ? token : ""
       }),
     })
       .then((res) => res.json())
       .then((mamaList) => {
-    this.setState({brand: ''});
-      this.setState({title: ''});
-      this.setState({quantity: ''});
-     this.setState({price: ''});
-     this.setState({store: ''});
-     this.setState({photo: ''});
+    this.setState({brand: '', title: '', quantity: '', price: '', store: '', photo: ''});
     
         console.log(mamaList);
       })
@@ -119,13 +115,16 @@ handleSubmit = (e: React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTMLFor
 
 <div>
 
-    <Form>
-<Form onSubmit={this.handleSubmit} className="form">
 
-        <FormGroup>
-        <Label className="label" for="exampleSelectMulti">Brand</Label>
-        <Input type="select" name="selectMulti" id="exampleSelectMulti" multiple>
-          <option>Johnson & Johnson</option>
+
+<h1>Your Products</h1>
+    <Form onSubmit={this.handleSubmit} className = " form">
+     
+      <div className="label">
+        <Label htmlFor="label">Brand</Label>
+        <br></br>
+        <Input type="select" name="selectMulti" id="exampleSelectMulti" multiple onChange={(e) => this.setState({brand: e.target.value})}>
+         <option>Johnson & Johnson</option>
           <option>Burts Bees</option>
           <option>Medela</option>
           <option>Spectra</option>
@@ -141,75 +140,76 @@ handleSubmit = (e: React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTMLFor
           <option>Amazon</option>
             <option>Other</option>
         </Input>
-      </FormGroup>
-
-      <FormGroup>
-
-          <Label className="label" for="title">Title of Product</Label>
-        <Input type="textarea" name="title" id="title" placeholder="Title of Item" />
-      </FormGroup>
-
-  <FormGroup>
-        <Label className="label" for="exampleSelect">Quantity</Label>
-        <Input type="select" name="select" id="exampleSelect">
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
+      </div>
+     
+      <div className="label">
+        <Label htmlFor="label">Title</Label>
+  
+        <Input
+          type="text"
+          name="label"
+          placeholder="Title of Item"
+          onChange={(e) => this.setState({title: e.target.value})}
+        />
+      </div>
+<br></br>
+      <div className="label">
+         <Label htmlFor="label">Store</Label>
+        <Input type="select" name="select" id="store" onChange={(e) => this.setState({store: e.target.value})}>
+          <option >Target</option>
+          <option >Walmart</option>
+          <option >Amazon</option>
+          <option >Buy Buy Baby</option>
+          <option >Other</option>
         </Input>
-      </FormGroup>
-
-      <InputGroup>
-          <InputGroupAddon addonType="prepend">$</InputGroupAddon>
+      </div>
+       <br></br>
+      <div className="label">
+        <Label  htmlFor="label">Quantity</Label>
+        <br></br>
+        <Input
+          type="text"
+          name="label"
+          onChange={(e) => this.setState({quantity: e.target.value})}
+        />
+        </div>
+        <br></br>
+         <div className="label">
+        <InputGroup>
+        <InputGroupAddon addonType="prepend">$</InputGroupAddon>
           <Input
             placeholder="Price"
             min={0}
             max={1000000}
-           
             step="1"
             value={this.state.price}
             onChange={(e) => this.setState({price: e.target.value})}
           />
           <InputGroupAddon addonType="append">.00</InputGroupAddon>
-        </InputGroup>
-
-<br/>
-      <FormGroup>
-        <Label className="label" for="store">Choose the Store</Label>
-        <Input type="select" name="select" id="store">
-          <option>Target</option>
-          <option>Walmart</option>
-          <option>Amazon</option>
-          <option>Buy Buy Baby</option>
-          <option>Other</option>
-        </Input>
-      </FormGroup>
-    
-
-         <FormGroup>
-      <FormText color="secondary">
-        <Label className="label" for="photoUrl">Photo of the Product</Label>
-        <Input type="file" name="file" placeholder="upload an image" onChange={this.uploadImage} />
-        <br />
-
-        {this.state.loading ? (
-          <h3> Loading...</h3>
-        ) : (
-        <img src={this.state.photo} style={{width: '300px'}} />
-        )}
-        </FormText>
+          </InputGroup>
+      </div>
+      <br></br>
       
-        
-      </FormGroup>
-     
-    
-     <Button outline color="secondary" >Submit</Button>
-     
+      <br></br>
+       <div className="label">
+        <Label htmlFor="about">Product Photo</Label>
+        <br></br>
+        <Input
+          type="file"
+          name="label"
+          onChange={this.uploadImage}
+        />
+        {this.state.loading ? (
+          <h3>Loading...</h3>
+        ) : (
+          <img src={this.state.photo} alt="" style={{width: "100px"}} />
+        )}
+      </div>
+      <br></br>
+      <div className="submit">
+        <Button >Create</Button>
+      </div>
     </Form>
-
-
-</Form>
  
 
     </div>

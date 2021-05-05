@@ -2,39 +2,46 @@ import React, { Component} from "react";
 import { Link } from "react-router-dom";
 import { Card, CardImg, CardText, CardBody,
   CardTitle, CardSubtitle, Button} from "reactstrap";
+   import { Redirect } from "react-router-dom";
  
 
-type babyVariables = {
-    brand: string,
-    title: string,
-    quantity: string,
-    price: string,
-    store: string, 
-    photo: string,
-   
-}
 
 
 
 interface BabyProps  {
 token: string,
 
-
-
 }
 
-
+type babyVariables = {
+  babylist: [],
+  list: []
+    /*brand: string,
+    title: string,
+    quantity: string,
+    price: string,
+    store: string, 
+    photo: string,*/
+}
 
 class BabyTable extends Component<BabyProps, babyVariables > {
     constructor(props: BabyProps) {
         super(props);
-        this.state = { 
-          brand: "",
-            title: "",
-            quantity: "",
-            price: "", 
-            store: "",
-            photo: "", }
+        this.state = {
+          babylist: [],
+          list: []
+          /*brand: '',
+    title: '',
+    quantity: '',
+    price: '',
+    store:'', 
+    photo: '',*/
+  }
+    }
+
+
+     componentWillMount() {
+      this.fetchBabyList();
     }
 
 fetchBabyList = () => {
@@ -49,14 +56,18 @@ fetchBabyList = () => {
             })
         })
         .then((res) => res.json())
-        .then((babyList) => {
-           this.setState({brand: ''});
-      this.setState({title: ''});
-      this.setState({quantity: ''});
-     this.setState({price: ''});
-     this.setState({store: ''});
-     this.setState({photo: ''});
-            console.log(babyList)
+        .then((babyListEntry) => {
+          console.log(babyListEntry)
+           this.setState({
+             babylist: babyListEntry
+            
+            /*brand: '',
+    title: '',
+    quantity: '',
+    price: '',
+    store:'', 
+           photo: '',*/});
+            
         })
     }
 
@@ -65,12 +76,18 @@ fetchBabyList = () => {
 <div>
 
     <h1 id="table">Your Products </h1>
-           <Card  >
-        <CardImg top width="100%" src="https://images-na.ssl-images-amazon.com/images/I/81bfst2%2B2SL._SL1500_.jpg" alt="Card image cap"  />
+    {((this.fetchBabyList === undefined) || this.fetchBabyList.length == 0 )? <Redirect to ="BabyAdd"/> : this.fetchBabyList}
+         { this.state.babylist.map((babylist: any) => ( <Card  >
+        <CardImg top width="100%" src={babylist.photo} alt="Card image cap"  />
         <CardBody className= "card-body">
-          <CardTitle tag="h5">Title</CardTitle>
-          <CardSubtitle tag="h6" className="mb-2 text-muted">Brand</CardSubtitle>
-          <CardText>Price Store</CardText>
+          <CardTitle tag="h5">Brand: {babylist.brand}</CardTitle>
+          <CardSubtitle tag="h5" className="mb-2 text-muted">Name of item: {babylist.title}</CardSubtitle>
+          <CardText>Store: {babylist.store} </CardText>
+            <CardText>Quantity: {babylist.quantity} </CardText>
+              <CardText>${babylist.price}</CardText>
+         
+           
+            {/*<Button onClick={this.fetchBabyList}>Fetch Results</Button>*/}
           <Button> 
           <Link to="/babyadd" className="inactive" id="add-button">
              Add
@@ -91,7 +108,7 @@ fetchBabyList = () => {
 
         </CardBody>
       </Card>
-        
+    ))}
 
     </div>
   );

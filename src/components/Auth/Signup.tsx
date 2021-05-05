@@ -67,22 +67,7 @@ class Signup extends Component<SignUpProps, SignUpVariables> {
             />
           </FormGroup>
 
-           <FormGroup tag="fieldset">
-        <legend className= "label">Role</legend>
-        <FormGroup check>
-          <Label check className= "label">
-            <Input type="radio" name="radio1" />{' '}
-            Subscriber
-          </Label>
-        </FormGroup>
-
-        <FormGroup check>
-          <Label check className= "label">
-            <Input type="radio" name="radio1" />{' '}
-            Admin
-          </Label>
-        </FormGroup>
-
+           
            {/*<FormGroup>
             <Label htmlFor="role">Role</Label>
             <Input
@@ -92,7 +77,7 @@ class Signup extends Component<SignUpProps, SignUpVariables> {
               required
             />
            </FormGroup>*/}
-           </FormGroup>
+           
           <Button type="submit">Signup</Button>
         </Form>
       </div>

@@ -87,12 +87,7 @@ handleSubmit = (e: React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTMLFor
     })
     .then((res) => res.json())
       .then((babyList) => {
-    this.setState({brand: ''});
-      this.setState({title: ''});
-       this.setState({quantity: ''});
-     this.setState({price: ''});
-     this.setState({store: ''});
-     this.setState({photo: ''});
+   this.setState({brand: '', title: '', quantity: '', price: '', store: '', photo: ''});
     
         console.log(babyList);
       })
