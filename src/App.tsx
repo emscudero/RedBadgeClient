@@ -18,6 +18,7 @@ type AppVariables = {
 }
 
 interface AppProps{
+  
 
   
 }
@@ -43,13 +44,13 @@ class App extends Component<AppProps, AppVariables> {
   }
   
 
-  protectedViews = () => {
-    return this.state.sessionToken === localStorage.getItem("token")? (
-      ""
-    ) : (
-      <Auth updateToken={this.updateToken} />
-    );
-  };
+  // protectedViews = () => {
+  //   return this.state.sessionToken === localStorage.getItem("token")? (
+  //     ""
+  //   ) : (
+  //     <Auth updateToken={this.updateToken} token={this.props.token} />
+  //   );
+  // };
   
  
 
@@ -77,12 +78,4 @@ class App extends Component<AppProps, AppVariables> {
 }
 }
 
-
-
-{/*{!Auth ? (
-  component home / about us
-) : (
-everything else
-)
-}  */}
 export default App;

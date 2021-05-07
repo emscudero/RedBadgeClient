@@ -5,6 +5,7 @@ import {Card, CardImg, CardText, CardBody,
   import MamaDelete from "./MamaDelete";
   import { Redirect } from "react-router-dom";
   import MamaEdit from "./MamaEdit";
+  import MamaAdd from "./MamaAdd";
 
 
 
@@ -81,12 +82,9 @@ class MamaTable extends Component <MamaProps, mamaVariables>{
           <CardText>Store: {mamalist.store} </CardText>
             <CardText>Quantity: {mamalist.quantity} </CardText>
               <CardText>${mamalist.price}</CardText>
-          <Button> 
-          <Link to="/mamaadd" className="inactive" >
-             Add
-            </Link>
-            </Button>
+         
             
+           <MamaAdd token={this.props.token} mamalist={mamalist} fetchMamaList={this.fetchMamaList} />
            
     <MamaEdit token={this.props.token} mamalist={mamalist} fetchMamaList={this.fetchMamaList} />
         

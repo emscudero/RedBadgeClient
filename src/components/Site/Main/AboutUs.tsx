@@ -30,17 +30,7 @@ render() {
               <p></p>
               
             </Jumbotron>
-            <Jumbotron>
-              <h1 className="display-2">Our Founder</h1>
-              <p className="lead">In 2019, Emily became a mother to a boy. Though she lived out of state from help and family, she managed by natures instinct to raise him and learn the ropes to motherhood. Now she wants to be able to give moms a source to help online.</p>
-              <hr className="my-2" />
-              <p></p>
-              <p className="lead">
-              
-           
-          
-               </p>
-            </Jumbotron>
+            
 
 
 

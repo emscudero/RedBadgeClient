@@ -49,7 +49,7 @@ class BabyDelete extends Component <BabyProps, babyVariables> {
 
         return(
             <div>
-                 <Button onClick={this.deleteItem}>Delete</Button>
+                 <Button outline color="danger" onClick={this.deleteItem}>Delete</Button>
             </div>
         )
     }
