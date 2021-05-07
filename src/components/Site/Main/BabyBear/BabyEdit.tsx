@@ -2,13 +2,13 @@ import * as React from 'react';
 import { Component } from 'react';
 import { 
     Button, 
-    Form,
-    FormText,
-    FormGroup, 
+    Form, 
     Label, 
     Input,
     InputGroup,
-    InputGroupAddon
+    InputGroupAddon, Modal, 
+    ModalBody, 
+    ModalHeader
 } from 'reactstrap';
 
 type BabyVariables = {
@@ -18,11 +18,14 @@ type BabyVariables = {
     price: string,
     store: string, 
     photo: string,
-    loading: boolean
+    loading: boolean, 
+    modal: boolean
 }
 
 interface BabyProps  {
-token: string
+token: string,
+babylist: any,
+fetchBabyList: Function
 }
 
 
@@ -36,8 +39,10 @@ class BabyEdit extends Component<BabyProps, BabyVariables> {
             price: "", 
             store: "",
             photo: "",
+            modal: true,
             loading: false
          }
+          // this.handleSubmit = this.handleSubmit.bind(this);
         }
 
 
@@ -65,9 +70,16 @@ uploadImage = async (e:React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTM
   }
 
 
-handleSubmit = (e: React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTMLFormElement>) => {
+  toggle = () => {
+  this.setState({modal: !this.state.modal})
+}
+
+handleSubmit = (e:React.FormEvent) => {
+  console.log(this.props.babylist);
+  let token = this.props.token ? this.props.token : localStorage.getItem("token");
          e.preventDefault();
-    fetch("http://localhost:3000/babylist/update/:id", {
+    fetch(`http://localhost:3000/babylist/update/${this.props.babylist.id}`, {
+      
       method: "PUT",
       body: JSON.stringify({
         babylist: {
@@ -82,30 +94,34 @@ handleSubmit = (e: React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTMLFor
       }),
       headers: new Headers({
         "Content-Type": "application/json",
-        "Authorization": this.props.token,
+        "Authorization": token ? token : ""
       }),
     })
     .then((res) => res.json())
-      .then((babyList) => {
+      .then((babyListEntry) => {
    this.setState({brand: '', title: '', quantity: '', price: '', store: '', photo: ''});
-    
-        console.log(babyList);
+    this.toggle();
+    this.props.fetchBabyList();
+        console.log(babyListEntry);
       })
     };
 
 
     render() { 
+      console.log(this.props.babylist.id);
         return (
-            <div>
+         <div>
+  <Button className="inactive" onClick={this.toggle}>Edit Item</Button> 
+<Modal isOpen={!this.state.modal} toggle={this.toggle}>
+  
+        <ModalHeader toggle={this.toggle}>Update Item</ModalHeader>
+            <ModalBody>
+                <Form onSubmit={this.handleSubmit} > 
 
-
-            <h1>Update Item</h1>
-
-
-                <Form>
-        <FormGroup>
-        <Label for="exampleSelectMulti">Brand</Label>
-        <Input type="select" name="selectMulti" id="exampleSelectMulti" multiple>
+      <div className="label">
+        <Label htmlFor="label">Brand</Label>
+        <br></br>
+        <Input type="select" name="selectMulti" id="exampleSelectMulti" multiple onChange={(e) => this.setState({brand: e.target.value})}>
           <option>Johnson & Johnson</option>
           <option>Delta</option>
           <option>Ikea</option>
@@ -126,28 +142,43 @@ handleSubmit = (e: React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTMLFor
            <option>Munchkin</option>
             <option>Other</option>
         </Input>
-      </FormGroup>
-
-      <FormGroup>
-        <Label for="title">Title</Label>
-        <Input type="textarea" name="title" id="title" placeholder="Title of Item" />
-      </FormGroup>
-
- <FormGroup>
-        <Label for="exampleSelect">Quantity</Label>
-        <Input type="select" name="select" id="exampleSelect">
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
+      </div>
+     
+      <div className="label">
+        <Label htmlFor="label">Title</Label>
+  
+        <Input
+          type="text"
+          name="label"
+          placeholder="Title of Item"
+          onChange={(e) => this.setState({title: e.target.value})}
+        />
+      </div>
+<br></br>
+      <div className="label">
+         <Label htmlFor="label">Store</Label>
+        <Input type="select" name="select" id="store" onChange={(e) => this.setState({store: e.target.value})}>
+          <option >Target</option>
+          <option >Walmart</option>
+          <option >Amazon</option>
+          <option >Buy Buy Baby</option>
+          <option >Other</option>
         </Input>
-      </FormGroup>
-
-
-
-      <InputGroup>
-          <InputGroupAddon addonType="prepend">$</InputGroupAddon>
+      </div>
+       <br></br>
+      <div className="label">
+        <Label  htmlFor="label">Quantity</Label>
+        <br></br>
+        <Input
+          type="text"
+          name="label"
+          onChange={(e) => this.setState({quantity: e.target.value})}
+        />
+        </div>
+        <br></br>
+         <div className="label">
+        <InputGroup>
+        <InputGroupAddon addonType="prepend">$</InputGroupAddon>
           <Input
             placeholder="Price"
             min={0}
@@ -157,43 +188,36 @@ handleSubmit = (e: React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTMLFor
             onChange={(e) => this.setState({price: e.target.value})}
           />
           <InputGroupAddon addonType="append">.00</InputGroupAddon>
-        </InputGroup>
-
-      <FormGroup>
-        <Label for="store">Store</Label>
-        <Input type="select" name="select" id="store">
-          <option>Target</option>
-          <option>Walmart</option>
-          <option>Amazon</option>
-          <option>Buy Buy Baby</option>
-          <option>Other</option>
-        </Input>
-      </FormGroup>
-
-      <FormGroup>
-      <FormText color="secondary">
-        <Label for="photoUrl">Photo of Insured's Valuable</Label>
-        <Input type="file" name="file" placeholder="upload an image" onChange={this.uploadImage} />
-        <br />
-
-        {this.state.loading ? (
-          <h3> Loading...</h3>
-        ) : (
-        <img src={this.state.photo} style={{width: '300px'}} />
-        )}
-        </FormText>
-        <br/>
-        <br/>
-        <Button outline color="warning">Submit</Button>
-      </FormGroup>
-      <br />
-      <br />
-    
-    
-      <Button>Submit {this.handleSubmit}</Button>
-    </Form>
+          </InputGroup>
+      </div>
+      <br></br>
       
-        
+      <br></br>
+       <div className="label">
+        <Label htmlFor="about">Product Photo</Label>
+        <br></br>
+        <Input
+          type="file"
+          name="label"
+          onChange={this.uploadImage}
+        />
+        {this.state.loading ? (
+          <h3>Loading...</h3>
+        ) : (
+          <img src={this.state.photo} alt="" style={{width: "100px"}} />
+        )}
+      </div>
+      
+     
+      <br />
+      <br />
+    
+    
+      <Button type="submit">Submit</Button>
+      </Form> 
+       
+            </ModalBody>
+        </Modal>
 
            </div>
             

@@ -1,16 +1,20 @@
 import * as React from 'react';
 import { Component } from 'react';
+import {Button} from 'reactstrap';
+
 
 
 type babyVariables = {
-  babyList: []
+ 
 
     
 }
 
 
 interface BabyProps  {
-token: string
+token: string,
+babylist: any,
+fetchBabyList: Function
 }
 
 
@@ -18,34 +22,35 @@ class BabyDelete extends Component <BabyProps, babyVariables> {
     constructor(props: BabyProps) {
         super(props);
         this.state = {
-          babyList: []
+          
           }
         }
 
-    fetchBabyList = () => {
-  let localToken = localStorage.getItem("token")
-      localToken = localToken ? localToken: ""
-
-        fetch("http://localhost:3000/babylist/delete"), {
+        deleteItem = (e:React.FormEvent) => {
+        let token = this.props.token ? this.props.token : localStorage.getItem("token");
+        fetch(`http://localhost:3000/mamalist/delete/${this.props.babylist.id}`, {
             method: "DELETE",
             headers: new Headers({
                 "Content-Type": "application/json",
-                "Authorization": this.props.token ? this.props.token : localToken
-            })
-        }
-        .then((res) => res.json())
-      .then((babyListEntry) => {
-   this.setState({
-       babyList: babyListEntry});
+                "Authorization": token ? token : ""
+                
+            }
+            )
+       
     
-      })
-    };
+    }
+        )
+        .then(() => this.props.fetchBabyList());
+}
+
 
     render(){
 
 
         return(
-            <div></div>
+            <div>
+                 <Button onClick={this.deleteItem}>Delete</Button>
+            </div>
         )
     }
      };

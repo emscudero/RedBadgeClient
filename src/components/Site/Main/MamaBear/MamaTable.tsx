@@ -2,20 +2,24 @@ import React, { Component} from "react";
 import { Link } from "react-router-dom";
 import {Card, CardImg, CardText, CardBody,
   CardTitle, CardSubtitle, Button} from "reactstrap";
-  import MamaAdd from "./MamaAdd";
+  import MamaDelete from "./MamaDelete";
   import { Redirect } from "react-router-dom";
+  import MamaEdit from "./MamaEdit";
 
 
 
 interface MamaProps  {
-token: string
+token: string,
+
+
 
 
 }
 
 type mamaVariables = {
 mamalist: [],
-list: []
+list: [],
+role: string
 }
 
 class MamaTable extends Component <MamaProps, mamaVariables>{
@@ -23,11 +27,16 @@ class MamaTable extends Component <MamaProps, mamaVariables>{
         super(props);
         this.state = { 
           mamalist: [],
-          list: []
+          list: [],
+          role: ""
          }
     }
 
-    componentWillMount(){
+    componentDidMount(){
+      let role = localStorage.getItem("role")
+      if(role){
+        this.setState({role: role})
+      }
       this.fetchMamaList();
     }
 
@@ -51,7 +60,6 @@ class MamaTable extends Component <MamaProps, mamaVariables>{
         })
     }
 
-  
 
 
 
@@ -61,11 +69,12 @@ class MamaTable extends Component <MamaProps, mamaVariables>{
 
    <h1 id="table">Your Products </h1>
 
-   {((this.fetchMamaList === undefined) || this.fetchMamaList.length == 0 )? <Redirect to ="MamaAdd"/> : (this.fetchMamaList) && <Redirect to ="/MamaTable"/>}
+  {/*} {((this.fetchMamaList === undefined) || this.fetchMamaList.length == 0 )? <Redirect to ="MamaAdd"/> : (this.fetchMamaList) && <Redirect to ="/MamaTable"/>}*/}
     {this.state.mamalist.map((mamalist: any) => (
+      
            <Card  >
-             
-        <CardImg top width="100%" src={mamalist.photo} alt="Card image cap"  />
+             {/* {mamalist.id} */}
+        <CardImg top width="50%" src={mamalist.photo} alt="Card image cap"  />
         <CardBody className= "card-body">
            <CardTitle tag="h5">Brand: {mamalist.brand}</CardTitle>
           <CardSubtitle tag="h5" className="mb-2 text-muted">Name of item: {mamalist.title}</CardSubtitle>
@@ -73,27 +82,22 @@ class MamaTable extends Component <MamaProps, mamaVariables>{
             <CardText>Quantity: {mamalist.quantity} </CardText>
               <CardText>${mamalist.price}</CardText>
           <Button> 
-          <Link to="/mamaadd" className="inactive" id="add-button">
+          <Link to="/mamaadd" className="inactive" >
              Add
             </Link>
             </Button>
             
-             <Button>
-            <Link to="/mamaedit" className="inactive" id="edit-button">
-            Edit
-            </Link>
-            </Button>
-
-          <Button>
-            <Link to="/mamadelete" className="inactive" id="delete-button">
-           Delete
-            </Link>
-            </Button>
+           
+    <MamaEdit token={this.props.token} mamalist={mamalist} fetchMamaList={this.fetchMamaList} />
+        
+          {this.state.role == "admin" ?  <MamaDelete token={this.props.token} mamalist={mamalist} fetchMamaList={this.fetchMamaList} /> : null}
+        
 
         </CardBody>
       </Card>
       ))  }
     </div>
+
 
         );
     }

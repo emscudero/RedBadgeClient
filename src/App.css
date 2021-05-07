@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  background-color:#582B11;
+  background-color: #582B11;
 }
 
 .header {
@@ -9,7 +9,7 @@
 }
 
 .navbar-toggler-icon {
- background-color: #582B11 !important;
+  background-color: #582B11 !important;
 }
 
 .brand:hover {
@@ -34,7 +34,7 @@
 }
 
 body {
- /* background: #582B11!important;*/
+  /* background: #582B11!important;*/
   background-image: url("https://res.cloudinary.com/dqaf1fih0/image/upload/v1620250487/pine_trees_qcltcn.jpg");
   font-family: 'Montserrat', sans-serif;
   color: #87F1FF;
@@ -107,6 +107,7 @@ h1 {
 .card {
   background-color: #C0F5FA !important;
   text-align: center;
+  
 }
 
 p {
@@ -114,7 +115,7 @@ p {
 }
 
 .label {
-  color: white;
+  color: #582B11;
   font-family: 'Montserrat', sans-serif;
 }
 
@@ -135,3 +136,5 @@ p {
 #table {
   padding: 100px 5px;
 }
+
+

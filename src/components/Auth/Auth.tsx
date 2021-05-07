@@ -11,6 +11,7 @@ type AuthVariables = {
 
 type AuthProps = {
 updateToken: (newToken: string) => void
+
 }
 
 

@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { Card, CardImg, CardText, CardBody,
   CardTitle, CardSubtitle, Button} from "reactstrap";
    import { Redirect } from "react-router-dom";
+   import BabyEdit from "./BabyEdit";
+   import BabyDelete from "./BabyDelete";
  
 
 
@@ -15,13 +17,9 @@ token: string,
 
 type babyVariables = {
   babylist: [],
-  list: []
-    /*brand: string,
-    title: string,
-    quantity: string,
-    price: string,
-    store: string, 
-    photo: string,*/
+  list: [], 
+  role: string
+    
 }
 
 class BabyTable extends Component<BabyProps, babyVariables > {
@@ -29,18 +27,17 @@ class BabyTable extends Component<BabyProps, babyVariables > {
         super(props);
         this.state = {
           babylist: [],
-          list: []
-          /*brand: '',
-    title: '',
-    quantity: '',
-    price: '',
-    store:'', 
-    photo: '',*/
-  }
+          list: [], 
+          role: ''
+        }
     }
 
 
-     componentWillMount() {
+     componentDidMount() {
+        let role = localStorage.getItem("role")
+      if(role){
+        this.setState({role: role})
+      }
       this.fetchBabyList();
     }
 
@@ -61,12 +58,7 @@ fetchBabyList = () => {
            this.setState({
              babylist: babyListEntry
             
-            /*brand: '',
-    title: '',
-    quantity: '',
-    price: '',
-    store:'', 
-           photo: '',*/});
+           });
             
         })
     }
@@ -76,7 +68,7 @@ fetchBabyList = () => {
 <div>
 
     <h1 id="table">Your Products </h1>
-    {((this.fetchBabyList === undefined) || this.fetchBabyList.length == 0 )? <Redirect to ="BabyAdd"/> : this.fetchBabyList}
+    {/* {((this.fetchBabyList === undefined) || this.fetchBabyList.length == 0 )? <Redirect to ="BabyAdd"/> : this.fetchBabyList} */}
          { this.state.babylist.map((babylist: any) => ( <Card  >
         <CardImg top width="100%" src={babylist.photo} alt="Card image cap"  />
         <CardBody className= "card-body">
@@ -94,17 +86,9 @@ fetchBabyList = () => {
             </Link>
             </Button>
             
-             <Button>
-            <Link to="/babyedit" className="inactive" id="edit-button">
-            Edit
-            </Link>
-            </Button>
+            <BabyEdit token={this.props.token} babylist={babylist} fetchBabyList={this.fetchBabyList} />
 
-          <Button>
-            <Link to="/babydelete" className="inactive" id="delete-button">
-           Delete
-            </Link>
-            </Button>
+          {this.state.role == "admin" ?  <BabyDelete token={this.props.token} babylist={babylist} fetchBabyList={this.fetchBabyList} /> : null}
 
         </CardBody>
       </Card>

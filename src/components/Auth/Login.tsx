@@ -36,6 +36,7 @@ class Login extends Component<LoginProps, UserVariables> {
       .then((response) => response.json())
       .then((data) => {
         this.props.updateToken(data.sessionToken);
+        localStorage.setItem("role", data.user.role)
           {/*this.props.toggle();*/}
       
       });

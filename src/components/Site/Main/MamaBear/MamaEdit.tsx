@@ -2,9 +2,7 @@ import * as React from 'react';
 import { Component } from 'react';
 import { 
     Button, 
-    Form,
-    FormText,
-    FormGroup, 
+    Form, 
     Label, 
     Input,
     InputGroup,
@@ -21,11 +19,14 @@ type MamaVariables = {
     price: string,
     store: string, 
     photo: string,
-    loading: boolean
+    loading: boolean,
+    modal: boolean
 }
 
 interface MamaProps  {
-token: string
+token: string,
+mamalist: any,
+fetchMamaList: Function
 }
 
 
@@ -39,8 +40,10 @@ class MamaEdit extends Component<MamaProps, MamaVariables> {
             price: "", 
             store: "",
             photo: "",
+            modal: true,
             loading: false
          }
+        //  this.handleSubmit = this.handleSubmit.bind(this);
         }
 
 
@@ -66,16 +69,21 @@ uploadImage = async (e:React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTM
   this.setState({loading : false})
   
   }
+toggle = () => {
+  this.setState({modal: !this.state.modal})
+}
 
-
-handleSubmit = (e: React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTMLFormElement>) => {
+handleSubmit = (e:React.FormEvent) => {
+  console.log(this.props.mamalist);
+   let token = this.props.token ? this.props.token : localStorage.getItem("token");
          e.preventDefault();
-    fetch("http://localhost:3000/babylist/update/:id", {
+    fetch(`http://localhost:3000/mamalist/update/${this.props.mamalist.id}`, {
       method: "PUT",
       body: JSON.stringify({
         mamalist: {
           brand:this.state.brand,
          title:this.state.title,
+         quantity: this.state.quantity,
          price:this.state.price,
          store:this.state.store,
          photo:this.state.photo,
@@ -84,33 +92,36 @@ handleSubmit = (e: React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTMLFor
       }),
       headers: new Headers({
         "Content-Type": "application/json",
-        "Authorization": this.props.token,
+        "Authorization": token ? token : ""
       }),
     })
     .then((res) => res.json())
-      .then((mamaList) => {
+      .then((mamaListEntry) => {
    this.setState({brand: '', title: '', quantity: '', price: '', store: '', photo: ''});
-    
-        console.log(mamaList);
+    this.toggle();
+    this.props.fetchMamaList();
+        console.log(mamaListEntry);
       })
     };
 
 
     render() { 
+      console.log(this.props.mamalist.id);
         return (
             <div>
-
-<Modal isOpen={true}>
-
-            <ModalHeader>Update Item</ModalHeader>
-
+  <Button className="inactive" onClick={this.toggle}>Edit Item</Button> 
+<Modal isOpen={!this.state.modal} toggle={this.toggle}>
+        <ModalHeader toggle={this.toggle}>Update Item</ModalHeader>
             <ModalBody>
-                <Form onSubmit={this.handleSubmit}>
+                <Form onSubmit={this.handleSubmit}> 
 
-                <Form>
-        <FormGroup>
-        <Label for="exampleSelectMulti">Brand</Label>
-        <Input type="select" name="selectMulti" id="exampleSelectMulti" multiple>
+                
+        
+     
+      <div className="label">
+        <Label htmlFor="label">Brand</Label>
+        <br></br>
+        <Input type="select" name="selectMulti" id="exampleSelectMulti"    multiple onChange={(e) => this.setState({brand: e.target.value})}>
           <option>Johnson & Johnson</option>
           <option>Burts Bees</option>
           <option>Medela</option>
@@ -127,60 +138,83 @@ handleSubmit = (e: React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTMLFor
           <option>Amazon</option>
             <option>Other</option>
         </Input>
-      </FormGroup>
-
-      <FormGroup>
-        <Label for="title">Title</Label>
-        <Input type="textarea" name="title" id="title" placeholder="Title of Item" />
-      </FormGroup>
-
-      <InputGroup>
-          <InputGroupAddon addonType="prepend">$</InputGroupAddon>
+      </div>
+     
+      <div className="label">
+        <Label htmlFor="label">Title</Label>
+  
+        <Input
+          type="text"
+          name="label"
+          placeholder="Title of Item"
+          value={this.props.mamalist.title}
+          onChange={(e) => this.setState({title: e.target.value})}
+        />
+      </div>
+<br></br>
+      <div className="label">
+         <Label htmlFor="label">Store</Label>
+        <Input type="select" name="select" id="store" {...this.props.mamalist.store} onChange={(e) => this.setState({store: e.target.value})}>
+          <option >Target</option>
+          <option >Walmart</option>
+          <option >Amazon</option>
+          <option >Buy Buy Baby</option>
+          <option >Other</option>
+        </Input>
+      </div>
+       <br></br>
+      <div className="label">
+        <Label  htmlFor="label">Quantity</Label>
+        <br></br>
+        <Input
+          type="text"
+          name="label"
+          value={this.props.mamalist.quantity}
+          onChange={(e) => this.setState({quantity: e.target.value})}
+        />
+        </div>
+        <br></br>
+         <div className="label">
+        <InputGroup>
+        <InputGroupAddon addonType="prepend">$</InputGroupAddon>
           <Input
             placeholder="Price"
             min={0}
             max={1000000}
             step="1"
-            value={this.state.price}
+            value={this.props.mamalist.price}
             onChange={(e) => this.setState({price: e.target.value})}
           />
           <InputGroupAddon addonType="append">.00</InputGroupAddon>
-        </InputGroup>
-
-      <FormGroup>
-        <Label for="store">Store</Label>
-        <Input type="select" name="select" id="store">
-          <option>Target</option>
-          <option>Walmart</option>
-          <option>Amazon</option>
-          <option>Buy Buy Baby</option>
-          <option>Other</option>
-        </Input>
-      </FormGroup>
-
-      <FormGroup>
-      <FormText color="secondary">
-        <Label for="photoUrl">Photo of the Product</Label>
-        <Input type="file" name="file" placeholder="upload an image" onChange={this.uploadImage} />
-        <br />
-
+          </InputGroup>
+      </div>
+      <br></br>
+      
+      <br></br>
+       <div className="label">
+        <Label htmlFor="about">Product Photo</Label>
+        <br></br>
+        <Input
+          type="file"
+          name="label"
+        
+          onChange={this.uploadImage}
+        />
         {this.state.loading ? (
-          <h3> Loading...</h3>
+          <h3>Loading...</h3>
         ) : (
-        <img src={this.state.photo} style={{width: '300px'}} />
+          <img src={this.state.photo} alt="" style={{width: "100px"}} />
         )}
-        </FormText>
-        <br/>
-        <br/>
-        <Button outline color="warning">Submit</Button>
-      </FormGroup>
+      </div>
+      
+     
       <br />
       <br />
     
     
-      <Button>Submit {this.handleSubmit}</Button>
-    </Form>
-        </Form>
+      <Button type="submit">Submit</Button>
+         </Form> 
+       
             </ModalBody>
         </Modal>
 

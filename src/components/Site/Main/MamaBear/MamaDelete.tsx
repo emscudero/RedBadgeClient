@@ -1,58 +1,58 @@
 import * as React from 'react';
 import { Component } from 'react';
+import {Button} from 'reactstrap';
 
 type MamaVariables = {
-    brand: string,
-    title: string,
-    quantity: string,
-    price: string,
-    store: string,
-    photo: string,
-    loading: boolean,
-     modal: boolean
+  
 }
 
 
 
 interface MamaProps  {
-token: string
+token: string,
+mamalist: any,
+fetchMamaList: Function
+
 
 }
 
 
 class MamaDelete extends Component <MamaProps, MamaVariables> {
+    
     constructor(props: MamaProps) {
         super(props);
         this.state = {
-            brand: "",
-            title: "",
-            quantity: "",
-            price: "", 
-            store: "",
-            photo: "",
-            loading: false,
-            modal: false
+    
           }
         }
-    /*deleteValuable = () => {
-        fetch("http://localhost:3000/babylist/delete"), {
+    deleteItem = (e:React.FormEvent) => {
+        let token = this.props.token ? this.props.token : localStorage.getItem("token");
+        fetch(`http://localhost:3000/mamalist/delete/${this.props.mamalist.id}`, {
             method: "DELETE",
             headers: new Headers({
                 "Content-Type": "application/json",
-                "Authorization": this.props.token
-            })
-        })
-        .then(() => this.props.fetchBabyList())  */
-  
+                "Authorization": token ? token : ""
+                
+            }
+            )
+       
+    
+    }
+        )
+        .then(() => this.props.fetchMamaList());
+}
 
-
+    
     render(){
 
 
         return(
-            <div></div>
+            <div>
+                <Button onClick={this.deleteItem}>Delete</Button>
+            </div>
         )
+        }
     }
-     };
+
 
      export default MamaDelete;

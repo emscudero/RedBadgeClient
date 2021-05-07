@@ -11,6 +11,7 @@ import Home from "./components/Site/Main/Home";
 import AboutUs from "./components/Site/Main/AboutUs";
 
 
+
 type AppVariables = {
   sessionToken: string
 
@@ -32,12 +33,15 @@ class App extends Component<AppProps, AppVariables> {
     //console.log(this.state.sessionToken);
   };
 
-  clearToken = () => {
-    localStorage.clear();
+  
+  
+  logout = () => {
+ localStorage.clear();
     this.setState({
       sessionToken: ''
-    })
+})
   }
+  
 
   protectedViews = () => {
     return this.state.sessionToken === localStorage.getItem("token")? (
@@ -56,13 +60,16 @@ class App extends Component<AppProps, AppVariables> {
   return (
     <div>
       <Router>
-        <Header updateToken = {this.updateToken} logout={this.clearToken} token={this.state.sessionToken} />
+        <Header updateToken = {this.updateToken} logout={this.logout} token={this.state.sessionToken} />
+
       {/*{this.protectedViews()}
       {/*<Route exact path='/'>
       {Admin = true ? <Redirect to="/home" /> : <home />
     ) : (
       <Redirect to ="/login" /> : <login />
-    )}
+    )} 
+
+
     </Route>*/}
      </Router>
     </div>

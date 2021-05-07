@@ -1,14 +1,12 @@
 import React, {Component} from "react";
-import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, Modal } from "reactstrap";
+import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, Modal, Button } from "reactstrap";
 import { Route, Link, Switch, Redirect } from "react-router-dom";
 import AboutUs from "./Main/AboutUs";
 import Home from "./Main/Home";
 import MamaAdd from "./Main/MamaBear/MamaAdd";
-import MamaDelete from "./Main/MamaBear/MamaDelete";
 import MamaTable  from "./Main/MamaBear/MamaTable";
 import BabyAdd from "./Main/BabyBear/BabyAdd";
 import BabyTable from "./Main/BabyBear/BabyTable";
-import BabyDelete from "./Main/BabyBear/BabyDelete";
 import Auth from "../Auth/Auth";
 import Login from "../Auth/Login";
 import Signup from "../Auth/Signup";
@@ -20,6 +18,7 @@ interface AuthProps  {
 updateToken: (newToken: string ) => void
 token: string 
 logout: Function
+
 
 }
 
@@ -95,7 +94,7 @@ render() {
             </NavItem>
 
             <NavItem>
-              <NavLink href="LogOut" className="inactive">Log Out</NavLink>
+             <Button clicklogout={this.props.logout}>Logout</Button>
             </NavItem>
            
           </Nav>
@@ -117,15 +116,21 @@ render() {
             
           </Route>
 
-  <Route exact path="/mamatable">
+
+  *<Route exact path="/mamatable">
           {localStorage.getItem("token")  ? <MamaTable token={this.props.token}/> : <Auth updateToken={this.props.updateToken} /> }
+            
+    </Route>
+
+         {/* <Route exact path="/mamaedit">
+          {localStorage.getItem("token")  ? <MamaEdit token={this.props.token} /> : <Auth updateToken={this.props.updateToken} />}
             
           </Route>
 
   <Route exact path="/mamadelete">
           {localStorage.getItem("token")  ? <MamaDelete token={this.props.token}/> : <Auth updateToken={this.props.updateToken} /> }
         
-          </Route>
+    </Route>*/}
 
           <Route exact path="/babyadd">
           {localStorage.getItem("token")  ? <BabyAdd token={this.props.token} /> : <Auth updateToken={this.props.updateToken}/> }
@@ -137,10 +142,10 @@ render() {
             
           </Route>
 
-  <Route exact path="/babydelete">
+  {/*<Route exact path="/babydelete">
           {localStorage.getItem("token")  ? <BabyTable token={this.props.token}/>: <BabyTable token={this.props.token}/> }
             
-          </Route>
+  </Route>*/}
 
 
 <Route exact path="/">
@@ -154,7 +159,6 @@ render() {
           </Route>
 
         </Switch>
-    
     </header>
 </div>
     );
