@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
-import { Form, Label, Input, InputGroupAddon, Button, InputGroup} from "reactstrap";
+import { Form, Label, Input, InputGroupAddon, Button, InputGroup,  Modal, 
+    ModalBody, 
+    ModalHeader} from "reactstrap";
   import { Link } from "react-router-dom";
 import { isJSDocThisTag } from 'typescript';
 import {  Redirect } from "react-router-dom";
@@ -13,12 +15,15 @@ type babyVariables = {
     price: string,
     store: string, 
     photo: string,
-    loading: boolean
+    loading: boolean,
+    modal: boolean
 }
 
 
 interface BabyProps  {
-token: string
+token: string,
+babylist: any,
+fetchBabyList: Function
 
 }
 
@@ -35,6 +40,7 @@ class BabyAdd extends Component <BabyProps, babyVariables> {
             store: "",
             photo: "",
             loading: false,
+            modal: true
           }
           this.handleSubmit = this.handleSubmit.bind(this);
         }
@@ -44,7 +50,7 @@ class BabyAdd extends Component <BabyProps, babyVariables> {
     const files: File = (target.files as FileList) [0];
     const data = new FormData()
     data.append('file', files)
-    data.append('upload_preset', 'redbadge')
+    data.append('upload_preset', 'productscloud')
     this.setState({loading: true})
     const res = await fetch(
     'https://api.cloudinary.com/v1_1/dqaf1fih0/image/upload',
@@ -62,7 +68,9 @@ class BabyAdd extends Component <BabyProps, babyVariables> {
   
   }
 
-
+toggle = () => {
+  this.setState({modal: !this.state.modal})
+}
 
 handleSubmit = (e:React.FormEvent) => {
   let token = this.props.token ? this.props.token : localStorage.getItem("token");
@@ -86,10 +94,12 @@ handleSubmit = (e:React.FormEvent) => {
       }),
     })
       .then((res) => res.json()) 
-      .then((babyList) => {
+      .then((babyListEntry) => {
     this.setState({brand: '', title: '', quantity: '', price: '', store: '', photo: ''});
-      
-        console.log(babyList);
+      this.toggle();
+    this.props.fetchBabyList();
+        console.log(babyListEntry);
+        
       })
     };
 
@@ -104,8 +114,11 @@ handleSubmit = (e:React.FormEvent) => {
 
 
 
-<h1>Your Products</h1>
-    <Form onSubmit={this.handleSubmit} className = "form">
+<Button className="inactive" onClick={this.toggle}>Add Item</Button> 
+<Modal isOpen={!this.state.modal} toggle={this.toggle}>
+        <ModalHeader toggle={this.toggle}>Add Item</ModalHeader>
+            <ModalBody>
+    <Form onSubmit={this.handleSubmit} >
      
       <div className="label">
         <Label htmlFor="label">Brand</Label>
@@ -188,6 +201,7 @@ handleSubmit = (e:React.FormEvent) => {
         <Input
           type="file"
           name="label"
+          placeholder="image"
           onChange={this.uploadImage}
         />
         {this.state.loading ? (
@@ -201,99 +215,9 @@ handleSubmit = (e:React.FormEvent) => {
         <Button type="submit">Create</Button>
       </div>
     </Form>
-
-
-
-
-                
-                 {/*<Form onSubmit={this.handleSubmit} className="form">
-        <FormGroup>
-        <Label className="label" for="exampleSelectMulti">Brand</Label>
-        <Input type="select" name="selectMulti" id="exampleSelectMulti" multiple onChange={(e) => this.setState({brand: e.target.value})}>
-          <option>Johnson & Johnson</option>
-          <option>Delta</option>
-          <option>Ikea</option>
-          <option>Pottery Barn</option>
-          <option>Crate & Barrel</option>
-           <option>Chicco</option>
-            <option>Graco</option>
-             <option>Evenflo</option>
-              <option>Costco</option>
-            <option>Fisher Price</option>
-          <option>Pampers</option>
-          <option>Huggies</option>
-           <option>Honest</option>
-           <option>Burts Bees</option>
-           <option>Tommy Tippee</option>
-           <option>Dr.Brown</option>
-           <option>Philips Avent</option>
-           <option>Munchkin</option>
-            <option>Other</option>
-        </Input>
-      </FormGroup>
-
-      <FormGroup>
-
-          <Label className="label" for="title">Title of Product</Label>
-        <Input type="textarea" name="title" id="title" placeholder="Title of Item" onChange={(e) => this.setState({title: e.target.value})}/>
-      </FormGroup>
-
-      <FormGroup>
-        <Label className="label" for="exampleSelect">Quantity</Label>
-        <Input type="select" name="select" id="exampleSelect" onChange={(e) => this.setState({quantity: e.target.value})}>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-        </Input>
-      </FormGroup>
-
-   {/*  <InputGroup>
-          <InputGroupAddon addonType="prepend">$</InputGroupAddon>
-          <Input
-            placeholder="Price"
-            min={0}
-            max={1000000}
-            step="1"
-            value={this.state.price}
-            onChange={(e) => this.setState({price: e.target.value})}
-          />
-          <InputGroupAddon addonType="append">.00</InputGroupAddon>
-   </InputGroup>*/}
-<br/>
-     {/*} <FormGroup>
-        <Label className="label" for="store">Choose the Store </Label>
-        <Input type="select" name="select" id="store" onChange={(e) => this.setState({store: e.target.value})}>
-          <option value = "Target">Target</option>
-          <option value = "Walmart">Walmart</option>
-          <option value = "Amazon">Amazon</option>
-          <option value = "Buy Buy Baby">Buy Buy Baby</option>
-          <option value = "Other">Other</option>
-        </Input>
-      </FormGroup>
-
-      <FormGroup>
-      <FormText color="secondary">
-        <Label className="label" for="photoUrl">Photo of the Product</Label>
-        <Input type="file" name="file" placeholder="upload an image" onChange={this.uploadImage} />
-        <br />
-
-        {this.state.loading ? (
-          <h3> Loading...</h3>
-        ) : (
-        <img src={this.state.photo} style={{width: '300px'}} />
-        )}
-        </FormText>
-      
-        
-      </FormGroup>
-    
-    
-    
-     <Button type="submit" outline color="secondary">Submit</Button>
-    </Form>
-        */}
+   </ModalBody>
+    </Modal>
+ 
     </div>
            
 

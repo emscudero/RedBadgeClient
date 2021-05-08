@@ -52,7 +52,7 @@ uploadImage = async (e:React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTM
     const files: File = (target.files as FileList) [0];
     const data = new FormData()
     data.append('file', files)
-    data.append('upload_preset', 'thePicCloud')
+    data.append('upload_preset', 'productscloud')
     this.setState({loading: true})
     const res = await fetch(
     'https://api.cloudinary.com/v1_1/dqaf1fih0/image/upload',

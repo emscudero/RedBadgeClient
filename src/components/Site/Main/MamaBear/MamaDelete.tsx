@@ -48,7 +48,7 @@ class MamaDelete extends Component <MamaProps, MamaVariables> {
 
         return(
             <div>
-                <Button onClick={this.deleteItem}>Delete</Button>
+                <Button outline color="danger" onClick={this.deleteItem}>Delete</Button>
             </div>
         )
         }

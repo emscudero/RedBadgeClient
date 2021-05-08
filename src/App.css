@@ -34,8 +34,8 @@
 }
 
 body {
-  /* background: #582B11!important;*/
-  background-image: url("https://res.cloudinary.com/dqaf1fih0/image/upload/v1620250487/pine_trees_qcltcn.jpg");
+  background: #582B11!important;
+  /* background-image: url("https://res.cloudinary.com/dqaf1fih0/image/upload/v1620250487/pine_trees_qcltcn.jpg"); */
   font-family: 'Montserrat', sans-serif;
   color: #87F1FF;
   background-repeat: no-repeat;
@@ -73,9 +73,10 @@ body {
 }
 
 .card {
-  width: 15%;
+  width: 20%;
   height: 80%;
   padding: 25px 50px 25px 50px;
+  
 }
 
 .table {
@@ -107,7 +108,6 @@ h1 {
 .card {
   background-color: #C0F5FA !important;
   text-align: center;
-  
 }
 
 p {
@@ -126,6 +126,7 @@ p {
   border: 2px, solid, #C0F5FA;
   background-color: #AF125A;
   padding: 10px;
+  display: inline-block;
 }
 
 .card {
@@ -137,4 +138,28 @@ p {
   padding: 100px 5px;
 }
 
+.label-login {
+  color: #AF125A;
+  font-family: 'Lobster', cursive;
+  ;
+}
 
+.login-form {
+  width: 50%;
+  text-align: center;
+  display: inline-block;
+}
+
+.modal-title {
+  font-family: 'Lobster', cursive;
+  text-align: center;
+}
+
+.modal-header {
+  background-color: #AF125A;
+
+}
+
+.button {
+  color: #AF125A;
+}

@@ -13,7 +13,8 @@ type UserVariables = {
 
 type LoginProps = {
 updateToken: (newToken: string) => void,
-token: string
+token: string,
+toggle: Function
 }
 
 class Login extends Component<LoginProps, UserVariables> {
@@ -37,7 +38,7 @@ class Login extends Component<LoginProps, UserVariables> {
       .then((data) => {
         this.props.updateToken(data.sessionToken);
         localStorage.setItem("role", data.user.role)
-          {/*this.props.toggle();*/}
+          this.props.toggle();
       
       });
   };
@@ -49,20 +50,22 @@ class Login extends Component<LoginProps, UserVariables> {
          
         <h1>Login</h1>
         <Form onSubmit={this.handleSubmit}>
-          <FormGroup>
-            <Label htmlFor="email" className="label">Email</Label>
+          <FormGroup className="login-form">
+            <Label htmlFor="email" className="label-login">Email</Label>
             <Input
               onChange={(e) => this.setState({email: e.target.value})}
               name="email"
+              placeholder= "email@email.com"
               value={this.state.email}
               required
             />
           </FormGroup>
-          <FormGroup>
-            <Label htmlFor="password" className="label">Password</Label>
+          <FormGroup className="login-form">
+            <Label htmlFor="password" className="label-login">Password</Label>
             <Input
               onChange={(e) => this.setState({password: e.target.value})}
               name="password"
+              placeholder="password"
               value={this.state.password}
               type="password"
               required

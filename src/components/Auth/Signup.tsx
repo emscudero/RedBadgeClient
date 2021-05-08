@@ -10,7 +10,9 @@ type SignUpVariables = {
 
 type SignUpProps = {
 updateToken: (newToken: string) => void
-token: string
+token: string,
+toggle: Function
+
 
 }
 
@@ -35,7 +37,8 @@ class Signup extends Component<SignUpProps, SignUpVariables> {
       .then((data) => {
     console.log(data);
         this.props.updateToken(data.sessionToken);
-      
+          localStorage.setItem("role", data.user.role)
+      this.props.toggle();
       
       });
   };
@@ -45,23 +48,25 @@ class Signup extends Component<SignUpProps, SignUpVariables> {
         <h1>Sign Up</h1>
         <Form onSubmit={this.handleSubmit}>
 
-          <FormGroup>
-            <Label className= "label" htmlFor="email">Email</Label>
+          <FormGroup className="login-form">
+            <Label className="label-login" htmlFor="email">Email</Label>
             <Input
               onChange={(e) => this.setState({email: e.target.value})}
               type="email"
               name="email"
+              placeholder="youremail@email.com"
               value={this.state.email}
               required
             />
           </FormGroup>
 
-          <FormGroup>
-            <Label className= "label" htmlFor="password">Password</Label>
+          <FormGroup className="login-form"> 
+            <Label className="label-login" htmlFor="password">Password</Label>
             <Input
               onChange={(e) => this.setState({password: e.target.value})}
               name="password"
               value={this.state.password}
+              placeholder=" password"
               type="password"
               required
             />
@@ -77,9 +82,9 @@ class Signup extends Component<SignUpProps, SignUpVariables> {
               required
             />
            </FormGroup>*/}
-           
+          
           <Button type="submit">Signup</Button>
-        </Form>
+   </Form>
       </div>
     );
   }

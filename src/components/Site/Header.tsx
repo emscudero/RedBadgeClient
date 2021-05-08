@@ -57,7 +57,7 @@ render() {
             </NavItem>
 
 <NavItem>
-              <NavLink href="LatestProducts" className="inactive">Trending Products</NavLink>
+              <NavLink href="Profile" className="inactive">My Profile</NavLink>
             </NavItem>
 
              <NavItem>
@@ -86,15 +86,7 @@ render() {
 
 
             <NavItem>
-              <NavLink href="/" className="inactive">Login</NavLink>
-            </NavItem>
-
-            <NavItem>
-              <NavLink href="Signup" className="inactive">Sign Up</NavLink>
-            </NavItem>
-
-            <NavItem>
-             <Button clicklogout={this.props.logout}>Logout</Button>
+             <Button onClick={() => this.props.logout()}>Logout</Button>
             </NavItem>
            
           </Nav>
@@ -103,7 +95,7 @@ render() {
    
         <Switch>
          <Route exact path="/home">
-          {localStorage.getItem("token")  ? <Home token={this.props.token}/> :  <Auth updateToken={this.props.updateToken} />}
+          {localStorage.getItem("token")  ? <Home token={this.props.token}/> :  <Auth updateToken={this.props.updateToken} token={this.props.token} />}
            
           </Route>
 
@@ -111,14 +103,14 @@ render() {
             <AboutUs />
           </Route>
   
-  <Route exact path="/mamaAdd">
-          {localStorage.getItem("token")  ? <MamaAdd token={this.props.token}/> : <Auth updateToken={this.props.updateToken} />}
+  {/* <Route exact path="/mamaAdd">
+          {localStorage.getItem("token")  ? <MamaAdd token={this.props.token}/> : <Auth updateToken={this.props.updateToken} token={this.props.token} />}
             
-          </Route>
+          </Route> */}
 
 
-  *<Route exact path="/mamatable">
-          {localStorage.getItem("token")  ? <MamaTable token={this.props.token}/> : <Auth updateToken={this.props.updateToken} /> }
+  <Route exact path="/mamatable">
+          {localStorage.getItem("token")  ? <MamaTable token={this.props.token}/> : <Auth updateToken={this.props.updateToken} token={this.props.token} /> }
             
     </Route>
 
@@ -132,13 +124,13 @@ render() {
         
     </Route>*/}
 
-          <Route exact path="/babyadd">
-          {localStorage.getItem("token")  ? <BabyAdd token={this.props.token} /> : <Auth updateToken={this.props.updateToken}/> }
+          {/* <Route exact path="/babyadd">
+          {localStorage.getItem("token")  ? <BabyAdd token={this.props.token} /> : <Auth updateToken={this.props.updateToken} token={this.props.token}/> }
           
-          </Route>
+          </Route> */}
           
           <Route exact path="/babytable">
-          {localStorage.getItem("token")  ?  <BabyTable token={this.props.token}/> :  <Auth updateToken={this.props.updateToken} /> }
+          {localStorage.getItem("token")  ?  <BabyTable token={this.props.token}/> :  <Auth updateToken={this.props.updateToken} token={this.props.token} /> }
             
           </Route>
 
@@ -148,15 +140,15 @@ render() {
   </Route>*/}
 
 
-<Route exact path="/">
+{/* <Route exact path="/">
           {localStorage.getItem("token")  ? <Auth updateToken={this.props.updateToken} /> : <Login token={this.props.token} updateToken={this.props.updateToken}/> }
 
-          </Route>
+          </Route> */}
 
-    <Route exact path="/signup">
+    {/* <Route exact path="/signup">
           {localStorage.getItem("token")  ? <Auth updateToken={this.props.updateToken} /> : <Signup token={this.props.token} updateToken={this.props.updateToken}/>}
             
-          </Route>
+          </Route> */}
 
         </Switch>
     </header>

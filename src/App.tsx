@@ -9,6 +9,7 @@ import Footer from "./components/Site/Footer";
 import Auth from "./components/Auth/Auth";
 import Home from "./components/Site/Main/Home";
 import AboutUs from "./components/Site/Main/AboutUs";
+import { collapseTextChangeRangesAcrossMultipleVersions } from 'typescript';
 
 
 
@@ -18,6 +19,7 @@ type AppVariables = {
 }
 
 interface AppProps{
+  
 
   
 }
@@ -36,6 +38,7 @@ class App extends Component<AppProps, AppVariables> {
   
   
   logout = () => {
+  
  localStorage.clear();
     this.setState({
       sessionToken: ''
@@ -43,13 +46,13 @@ class App extends Component<AppProps, AppVariables> {
   }
   
 
-  protectedViews = () => {
-    return this.state.sessionToken === localStorage.getItem("token")? (
-      ""
-    ) : (
-      <Auth updateToken={this.updateToken} />
-    );
-  };
+  // protectedViews = () => {
+  //   return this.state.sessionToken === localStorage.getItem("token")? (
+  //     ""
+  //   ) : (
+  //     <Auth updateToken={this.updateToken} token={this.props.token} />
+  //   );
+  // };
   
  
 
@@ -61,6 +64,7 @@ class App extends Component<AppProps, AppVariables> {
     <div>
       <Router>
         <Header updateToken = {this.updateToken} logout={this.logout} token={this.state.sessionToken} />
+       
 
       {/*{this.protectedViews()}
       {/*<Route exact path='/'>
@@ -77,12 +81,4 @@ class App extends Component<AppProps, AppVariables> {
 }
 }
 
-
-
-{/*{!Auth ? (
-  component home / about us
-) : (
-everything else
-)
-}  */}
 export default App;

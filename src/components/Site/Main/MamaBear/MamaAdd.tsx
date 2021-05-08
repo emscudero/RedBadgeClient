@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
-import { Form, FormGroup, FormText, Label, Input, Button, InputGroup,  InputGroupAddon
+import { Form, FormGroup, FormText, Label, Input, Button, InputGroup,  Modal, 
+    ModalBody, 
+    ModalHeader, InputGroupAddon
  } from "reactstrap";
   import { Link } from "react-router-dom";
 
@@ -18,7 +20,9 @@ type MamaVariables = {
 
 
 interface MamaProps  {
-token: string
+token: string,
+mamalist: any,
+fetchMamaList: Function
 
 }
 
@@ -35,7 +39,7 @@ class MamaAdd extends Component <MamaProps, MamaVariables> {
             store: "",
             photo: "",
             loading: false,
-            modal: false
+            modal: true
 
           }
            this.handleSubmit = this.handleSubmit.bind(this);
@@ -47,7 +51,7 @@ uploadImage = async (e:React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTM
     const files: File = (target.files as FileList) [0];
     const data = new FormData()
     data.append('file', files)
-    data.append('upload_preset', 'thePicCloud')
+    data.append('upload_preset', 'productscloud')
     this.setState({loading: true})
     const res = await fetch(
     'https://api.cloudinary.com/v1_1/dqaf1fih0/image/upload',
@@ -65,13 +69,17 @@ uploadImage = async (e:React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTM
   
   }
 
-reload = () => window.location.reload();
+//  reload = () => window.location.reload();
+// toggle = () => {
+//     if (this.state.modal) {
+//       this.setState({brand: ''})
+//     }
+//     this.setState({modal: false})
+//     }
+
 toggle = () => {
-    if (this.state.modal) {
-      this.setState({brand: ''})
-    }
-    this.setState({modal: false})
-    }
+  this.setState({modal: !this.state.modal})
+}
 
 
 handleSubmit = (e:React.FormEvent) => {
@@ -98,16 +106,14 @@ handleSubmit = (e:React.FormEvent) => {
       }),
     })
       .then((res) => res.json())
-      .then((mamaList) => {
+      .then((mamaListEntry) => {
     this.setState({brand: '', title: '', quantity: '', price: '', store: '', photo: ''});
-    
-        console.log(mamaList);
+    this.toggle();
+    this.props.fetchMamaList();
+        console.log(mamaListEntry);
+        
       })
     };
-
-
-
-
 
 
     render() { 
@@ -117,8 +123,12 @@ handleSubmit = (e:React.FormEvent) => {
 
 
 
-<h1>Your Products</h1>
-    <Form onSubmit={this.handleSubmit} className = " form">
+
+<Button className="inactive" onClick={this.toggle}>Add Item</Button> 
+<Modal isOpen={!this.state.modal} toggle={this.toggle}>
+        <ModalHeader toggle={this.toggle}>Add Item</ModalHeader>
+            <ModalBody>
+    <Form onSubmit={this.handleSubmit} >
      
       <div className="label">
         <Label htmlFor="label">Brand</Label>
@@ -197,6 +207,7 @@ handleSubmit = (e:React.FormEvent) => {
         <Input
           type="file"
           name="label"
+          placeholder="image"
           onChange={this.uploadImage}
         />
         {this.state.loading ? (
@@ -207,9 +218,11 @@ handleSubmit = (e:React.FormEvent) => {
       </div>
       <br></br>
       <div className="submit">
-        <Button >Create</Button>
+        <Button>Create</Button>
       </div>
     </Form>
+    </ModalBody>
+    </Modal>
  
 
     </div>
