@@ -47,7 +47,7 @@ class Signup extends Component<SignUpProps, SignUpVariables> {
       <div>
         <h1>Sign Up</h1>
         <Form onSubmit={this.handleSubmit}>
-
+//add new requirements 
           <FormGroup className="login-form">
             <Label className="label-login" htmlFor="email">Email</Label>
             <Input

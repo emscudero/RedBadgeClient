@@ -1,10 +1,12 @@
 import * as React from 'react';
 import { Component } from 'react';
-import { Jumbotron, Button } from 'reactstrap';
+import {Card, CardImg, CardText, CardBody,
+  CardTitle, CardSubtitle, Button, CardLink} from "reactstrap";
 
 
 type ProfileVariables = {
-  
+  userlist: [],
+  role: string
 }
 
 
@@ -18,23 +20,68 @@ token: string,
 class Profile extends Component<ProfileProps, ProfileVariables>{
 constructor(props: ProfileProps) {
     super(props);
+    this.state = { 
+         userlist: [],
+          role: ""
+         }
 
 }
+
+ fetchUserList = () => {
+      let localToken = localStorage.getItem("token")
+      localToken = localToken ? localToken: ""
+  fetch("http://localhost:3000/mamalist/", {
+            method: "GET",
+            headers: new Headers ({
+                "Content-Type": "application/json",
+                "Authorization": this.props.token ? this.props.token : localToken
+            })
+        })
+        .then((res) => res.json())
+        .then((userListEntry) => {
+          console.log(userListEntry)
+            this.setState({
+              userlist: userListEntry
+            });
+            
+        })
+    }
+
+
+componentDidMount(){
+      let role = localStorage.getItem("role")
+      if(role){
+        this.setState({role: role})
+      }
+      this.fetchUserList();
+    }
+
+
+
+
+
 
 render() {
 
 
         return (
             <div>
-<Jumbotron>
-        <h1 className="display-3">Hello, world!</h1>
-        <p className="lead">This is a simple hero unit, a simple Jumbotron-style component for calling extra attention to featured content or information.</p>
-        <hr className="my-2" />
-        <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-        <p className="lead">
-          <Button color="primary">Learn More</Button>
-        </p>
-      </Jumbotron>
+
+              {this.state.userlist.map((mamalist: any) => (
+      
+           <Card  >
+             {/* {mamalist.id} */}
+        <CardImg top width="50%" src={userlist.photo} alt="Profile Picture"  />
+        <CardBody className= "card-body">
+           <CardTitle tag="h5">Your Name: {userlist.first_name}{userlist.last_name}</CardTitle>
+          <CardSubtitle tag="h5" className="mb-2 text-muted">Number of Children: {userlist.number_of_children}</CardSubtitle>
+          <CardLink href="/BabyTable">Go to Your Baby Table</CardLink>
+ <CardLink href="/MamaTable">Go to Your Mama Table</CardLink>
+
+        
+</CardBody>
+</Card>
+              ))}
     </div>
 
             )

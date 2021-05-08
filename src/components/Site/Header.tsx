@@ -10,6 +10,7 @@ import BabyTable from "./Main/BabyBear/BabyTable";
 import Auth from "../Auth/Auth";
 import Login from "../Auth/Login";
 import Signup from "../Auth/Signup";
+import Profile from "./Main/Profile";
 
 
 
@@ -98,6 +99,13 @@ render() {
           {localStorage.getItem("token")  ? <Home token={this.props.token}/> :  <Auth updateToken={this.props.updateToken} token={this.props.token} />}
            
           </Route>
+
+<Route exact path="/profile">
+          {localStorage.getItem("token")  ? <Profile token={this.props.token}/> :  <Auth updateToken={this.props.updateToken} token={this.props.token} />}
+           
+          </Route>
+
+
 
           <Route exact path="/aboutus">
             <AboutUs />
