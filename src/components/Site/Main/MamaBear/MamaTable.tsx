@@ -75,7 +75,7 @@ class MamaTable extends Component <MamaProps, mamaVariables>{
       
            <Card  >
              {/* {mamalist.id} */}
-        <CardImg top width="50%" src={mamalist.photo} alt="Card image cap"  />
+        <CardImg top width="50%" src={mamalist.photo} alt="Picture of Product"  />
         <CardBody className= "card-body">
            <CardTitle tag="h5">Brand: {mamalist.brand}</CardTitle>
           <CardSubtitle tag="h5" className="mb-2 text-muted">Name of item: {mamalist.title}</CardSubtitle>

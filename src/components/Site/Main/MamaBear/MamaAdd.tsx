@@ -39,7 +39,7 @@ class MamaAdd extends Component <MamaProps, MamaVariables> {
             store: "",
             photo: "",
             loading: false,
-            modal: false
+            modal: true
 
           }
            this.handleSubmit = this.handleSubmit.bind(this);
@@ -51,7 +51,7 @@ uploadImage = async (e:React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTM
     const files: File = (target.files as FileList) [0];
     const data = new FormData()
     data.append('file', files)
-    data.append('upload_preset', 'thePicCloud')
+    data.append('upload_preset', 'productscloud')
     this.setState({loading: true})
     const res = await fetch(
     'https://api.cloudinary.com/v1_1/dqaf1fih0/image/upload',
@@ -69,7 +69,7 @@ uploadImage = async (e:React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTM
   
   }
 
-// reload = () => window.location.reload();
+//  reload = () => window.location.reload();
 // toggle = () => {
 //     if (this.state.modal) {
 //       this.setState({brand: ''})
@@ -114,10 +114,6 @@ handleSubmit = (e:React.FormEvent) => {
         
       })
     };
-
-
-
-
 
 
     render() { 
@@ -211,6 +207,7 @@ handleSubmit = (e:React.FormEvent) => {
         <Input
           type="file"
           name="label"
+          placeholder="image"
           onChange={this.uploadImage}
         />
         {this.state.loading ? (

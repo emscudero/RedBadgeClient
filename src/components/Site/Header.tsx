@@ -57,7 +57,7 @@ render() {
             </NavItem>
 
 <NavItem>
-              <NavLink href="LatestProducts" className="inactive">Trending Products</NavLink>
+              <NavLink href="Profile" className="inactive">My Profile</NavLink>
             </NavItem>
 
              <NavItem>
@@ -86,7 +86,7 @@ render() {
 
 
             <NavItem>
-             <Button clicklogout={this.props.logout}>Logout</Button>
+             <Button onClick={() => this.props.logout()}>Logout</Button>
             </NavItem>
            
           </Nav>
@@ -124,10 +124,10 @@ render() {
         
     </Route>*/}
 
-          <Route exact path="/babyadd">
+          {/* <Route exact path="/babyadd">
           {localStorage.getItem("token")  ? <BabyAdd token={this.props.token} /> : <Auth updateToken={this.props.updateToken} token={this.props.token}/> }
           
-          </Route>
+          </Route> */}
           
           <Route exact path="/babytable">
           {localStorage.getItem("token")  ?  <BabyTable token={this.props.token}/> :  <Auth updateToken={this.props.updateToken} token={this.props.token} /> }

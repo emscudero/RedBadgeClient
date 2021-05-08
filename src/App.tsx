@@ -9,6 +9,7 @@ import Footer from "./components/Site/Footer";
 import Auth from "./components/Auth/Auth";
 import Home from "./components/Site/Main/Home";
 import AboutUs from "./components/Site/Main/AboutUs";
+import { collapseTextChangeRangesAcrossMultipleVersions } from 'typescript';
 
 
 
@@ -37,6 +38,7 @@ class App extends Component<AppProps, AppVariables> {
   
   
   logout = () => {
+  
  localStorage.clear();
     this.setState({
       sessionToken: ''
@@ -62,6 +64,7 @@ class App extends Component<AppProps, AppVariables> {
     <div>
       <Router>
         <Header updateToken = {this.updateToken} logout={this.logout} token={this.state.sessionToken} />
+       
 
       {/*{this.protectedViews()}
       {/*<Route exact path='/'>

@@ -5,6 +5,7 @@ import { Card, CardImg, CardText, CardBody,
    import { Redirect } from "react-router-dom";
    import BabyEdit from "./BabyEdit";
    import BabyDelete from "./BabyDelete";
+   import BabyAdd from "./BabyAdd";
  
 
 
@@ -70,7 +71,7 @@ fetchBabyList = () => {
     <h1 id="table">Your Products </h1>
     {/* {((this.fetchBabyList === undefined) || this.fetchBabyList.length == 0 )? <Redirect to ="BabyAdd"/> : this.fetchBabyList} */}
          { this.state.babylist.map((babylist: any) => ( <Card  >
-        <CardImg top width="100%" src={babylist.photo} alt="Card image cap"  />
+        <CardImg top width="100%" src={babylist.photo} alt="Picture of Product"  />
         <CardBody className= "card-body">
           <CardTitle tag="h5">Brand: {babylist.brand}</CardTitle>
           <CardSubtitle tag="h5" className="mb-2 text-muted">Name of item: {babylist.title}</CardSubtitle>
@@ -80,11 +81,7 @@ fetchBabyList = () => {
          
            
             {/*<Button onClick={this.fetchBabyList}>Fetch Results</Button>*/}
-          <Button> 
-          <Link to="/babyadd" className="inactive" id="add-button">
-             Add
-            </Link>
-            </Button>
+       <BabyAdd token={this.props.token} babylist={babylist} fetchBabyList={this.fetchBabyList} />
             
             <BabyEdit token={this.props.token} babylist={babylist} fetchBabyList={this.fetchBabyList} />
 
