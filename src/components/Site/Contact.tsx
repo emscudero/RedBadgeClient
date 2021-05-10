@@ -3,55 +3,94 @@ import React, {Component} from 'react';
 import {Link } from "react-router-dom";
 import { 
     Button, Form, FormGroup, Label, Input, FormText, Col, Row
-} from 'reactstrap'
+} from 'reactstrap';
+import { useForm, ValidationError } from '@formspree/react';
 
 
-class ContactUs extends Component {
 
-style = {width: "700px", border: "solid", color: "#582B11"}
+function ContactForm() {
+  const [state, handleSubmit] = useForm("xleajryk");
+  if (state.succeeded) {
+      return <p>Thanks for joining!</p>;
+  }
 
 
-render() {
+ let data = "";
+    fetch("https://formspree.io/f/xleajryk", {
+     method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(response => {
+      response.json().then(data => {
+        console.log("Successful" + data);
+      });
+    }).catch(error => {
+        console.log('post error', error);
+     });
+ 
+       
 
+  
+// style = {width: "700px", border: "solid", color: "#582B11"}
 
         return (
 <div className="contact_us">
 
 
-<img src="https://res.cloudinary.com/dqaf1fih0/image/upload/v1620574031/contactuspic1_prkeqi.jpg " className= "contact_img" style = {this.style} />
-           <Form className="form">
-      <Row form>
-        <Col md={6}>
-          <FormGroup>
-            <Label className="contact_items" for="first_name">First Name</Label>
-            <Input name="first_name" id="first_name" placeholder="First Name" />
-          </FormGroup>
-        </Col>
 
-        <Col md={6}>
-          <FormGroup>
-            <Label className= "contact_items" for="examplePassword">Last Name</Label>
-            <Input name="last_name" id="last_name" placeholder="Last Name" />
-          </FormGroup>
-        </Col>
-      </Row>
-     
-      <FormGroup>
-        <Label className= "contact_items" for="exampleText">Send Us a Message</Label>
-        <Input type="textarea" name="text" id="exampleText" />
-      </FormGroup>
-
-
-      
-      <Button className= "button">Submit</Button>
-    </Form>
+        
+        
+ 
+         <form className= "contact-us" onSubmit={handleSubmit}>
+      <label className="contact-header" htmlFor="email">
+        Contact Us!
+      </label>
+      <br></br>
+      <br></br>
+      <input
+        id="email"
+        type="email" 
+        name="email"
+        placeholder="Your email here "
+      />
+      <ValidationError 
+        prefix="Email" 
+        field="email"
+        errors={state.errors}
+      />
+<br></br>
+      <br></br>
+      <textarea
+        id="message"
+        name="message"
+        placeholder="Your message"
+      />
+      <ValidationError 
+        prefix="Message" 
+        field="message"
+        errors={state.errors}
+      />
+      <br></br>
+      <br></br>
+      <br></br>
+      <button className="button" disabled={state.submitting}>
+        Send to us
+      </button>
+    </form> 
+        
+        
 </div>
         );
-      };
+  
+  
     
-    }
+  
+ }
  
-export default ContactUs;
+export default ContactForm;
 
 
 

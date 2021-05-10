@@ -49,10 +49,10 @@ class BabyDelete extends Component <BabyProps, babyVariables> {
 
         return(
             <div>
-                 <Button className="button" id= "delete-button"  onClick={this.deleteItem}>Delete Item </Button>
+                 <Button className="button" id= "delete-button" type="submit"  onClick={this.deleteItem}>Delete Item</Button>
             </div>
         )
-    }
-     };
+    }   
+  }
 
      export default BabyDelete;

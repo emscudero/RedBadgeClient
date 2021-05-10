@@ -127,7 +127,8 @@ p {
 }
 
 .card-image {
-  height: 30%;
+  height: auto;
+  width: auto;
   border: 2px, solid, #582B11;
 }
 
@@ -224,10 +225,10 @@ p {
 
 /*Contact Us*/
 
-.contact_items {
+/* .contact_items {
   font-family: 'Montserrat', sans-serif;
   color: #87F1FF;
-}
+} */
 
 .contact_img {
   margin-left: auto;
@@ -235,10 +236,40 @@ p {
   align-items: center;
 }
 
-.contact_us {
-  background-image: url("")
+.contact-us {
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  justify-items: center;
+  align-items: center;
+  padding: 20px 20px;
+  margin: 10px;
+  box-sizing: border-box;
 }
 
+.contact-header {
+  color: white;
+  font-family: 'Lobster', cursive;
+  font-size: 100px;
+}
+
+#email {
+  width: 50%;
+  height: 50px;
+}
+
+#message {
+  width: 50%;
+  height: 200px;
+  background-color: #BD8B9C;
+}
+
+.contact-button{
+  
+}
 /*Footer*/
 
 .footer-text {
@@ -251,5 +282,5 @@ p {
 .slide-img {
   align-items: center !important;
   margin: auto;
-  width: 100% ;
+  width: 100%;
 }

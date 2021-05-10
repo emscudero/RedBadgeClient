@@ -8,8 +8,9 @@ import Header from "./components/Site/Header";
 import Footer from "./components/Site/Footer";
 import Auth from "./components/Auth/Auth";
 import Home from "./components/Site/Main/Home";
-import Contact from "./components/Site/Contact";
+import ContactUs from "./components/Site/Contact";
 import { collapseTextChangeRangesAcrossMultipleVersions } from 'typescript';
+import { FormspreeProvider } from '@formspree/react';
 
 
 
@@ -64,6 +65,7 @@ class App extends Component<AppProps, AppVariables> {
     <div>
       <Router>
         <Header updateToken = {this.updateToken} logout={this.logout} token={this.state.sessionToken} />
+        
      
       {/*{this.protectedViews()}
       {/*<Route exact path='/'>

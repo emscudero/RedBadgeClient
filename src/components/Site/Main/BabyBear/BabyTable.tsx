@@ -104,7 +104,7 @@ fetchBabyList = () => {
           
            <Col>
          <Card  >
-        <CardImg top width="70%" src={babylist.photo} alt=""  />
+        <CardImg top width= "50%" height= "50%" src={babylist.photo} alt=""  />
         <CardBody className= "card-body">
           <CardTitle tag="h5">Name of item: {babylist.title} </CardTitle>
           <CardSubtitle tag="h6" className="mb-2 text-muted"> Brand: {babylist.brand}</CardSubtitle>
@@ -114,7 +114,7 @@ fetchBabyList = () => {
          
            
             {/*<Button onClick={this.fetchBabyList}>Fetch Results</Button>*/}
-       <BabyAdd token={this.props.token} babylist={babylist} fetchBabyList={this.fetchBabyList} />
+       {/* <BabyAdd token={this.props.token} babylist={babylist} fetchBabyList={this.fetchBabyList} /> */}
             
             <BabyEdit token={this.props.token} babylist={babylist} fetchBabyList={this.fetchBabyList} />
 

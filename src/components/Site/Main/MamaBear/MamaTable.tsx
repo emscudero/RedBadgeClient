@@ -2,7 +2,7 @@ import React, { Component} from "react";
 import { Link } from "react-router-dom";
 import {Card, CardImg, CardText, CardBody,
   CardTitle, CardSubtitle, Button,
-ModalBody, Modal, ModalHeader, Row} from "reactstrap";
+ModalBody, Modal, ModalHeader, Row, Container, Col} from "reactstrap";
   import MamaDelete from "./MamaDelete";
   import { Redirect } from "react-router-dom";
   import MamaEdit from "./MamaEdit";
@@ -108,12 +108,12 @@ class MamaTable extends Component <MamaProps, mamaVariables>{
 
 
 
-
-
+<Container fluid>
+<Row xs="3">
 
   {/*} {((this.fetchMamaList === undefined) || this.fetchMamaList.length == 0 )? <Redirect to ="MamaAdd"/> : (this.fetchMamaList) && <Redirect to ="/MamaTable"/>}*/}
     {this.state.mamalist.map((mamalist: any) => (
-       <Row>
+      <Col>
            <Card  >
              {/* {mamalist.id} */}
         <CardImg  top width="50%" src={mamalist.photo} alt=""  />
@@ -125,7 +125,7 @@ class MamaTable extends Component <MamaProps, mamaVariables>{
               <CardText>${mamalist.price}</CardText>
          
             
-           <MamaAdd token={this.props.token} mamalist={mamalist} fetchMamaList={this.fetchMamaList} />
+           {/* <MamaAdd token={this.props.token} mamalist={mamalist} fetchMamaList={this.fetchMamaList} /> */}
            
     <MamaEdit token={this.props.token} mamalist={mamalist} fetchMamaList={this.fetchMamaList} />
         
@@ -134,8 +134,12 @@ class MamaTable extends Component <MamaProps, mamaVariables>{
 
         </CardBody>
       </Card>
+      </Col>
+      ))}
+
       </Row>
-      ))  }
+      </Container>
+
     </div>
 
 
