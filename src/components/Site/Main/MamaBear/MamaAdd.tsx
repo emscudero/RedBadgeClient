@@ -124,7 +124,7 @@ handleSubmit = (e:React.FormEvent) => {
 
 
 
-<Button className="inactive" onClick={this.toggle}>Add Item</Button> 
+<Button className="button" onClick={this.toggle}>Add Item</Button> 
 <Modal isOpen={!this.state.modal} toggle={this.toggle}>
         <ModalHeader toggle={this.toggle}>Add Item</ModalHeader>
             <ModalBody>
@@ -165,7 +165,7 @@ handleSubmit = (e:React.FormEvent) => {
 <br></br>
       <div className="label">
          <Label htmlFor="label">Store</Label>
-        <Input type="select" name="select" id="store" onChange={(e) => this.setState({store: e.target.value})}>
+        <Input type="select" name="select" id="store" multiple onChange={(e) => this.setState({store: e.target.value})}>
           <option >Target</option>
           <option >Walmart</option>
           <option >Amazon</option>
@@ -217,9 +217,9 @@ handleSubmit = (e:React.FormEvent) => {
         )}
       </div>
       <br></br>
-      <div className="submit">
-        <Button>Create</Button>
-      </div>
+   
+        <Button className="button"> Create</Button>
+      
     </Form>
     </ModalBody>
     </Modal>

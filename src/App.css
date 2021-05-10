@@ -1,3 +1,5 @@
+/*Main*/
+
 .App {
   text-align: center;
   background-color: #582B11;
@@ -8,26 +10,6 @@
   font-family: 'Lobster', cursive;
 }
 
-.navbar-toggler-icon {
-  background-color: #582B11 !important;
-}
-
-.brand:hover {
-  color: #AF125A;
-}
-
-.inactive {
-  color: #87F1FF;
-}
-
-.inactive:hover {
-  color: #AF125A;
-}
-
-.brand {
-  color: #582B11;
-}
-
 .home {
   text-align: center;
   background-color: grey;
@@ -35,12 +17,62 @@
 
 body {
   background: #582B11!important;
-  /* background-image: url("https://res.cloudinary.com/dqaf1fih0/image/upload/v1620250487/pine_trees_qcltcn.jpg"); */
-  font-family: 'Montserrat', sans-serif;
+  /* background-image: url(""); */
   color: #87F1FF;
   background-repeat: no-repeat;
   min-height: 100vh;
 }
+
+.navbar-toggler {
+  background-color: white !important;
+}
+
+.navbar-toggler-icon {
+  background-color: #87F1FF !important;
+  border-radius: 30%;
+}
+
+.navbar-brand {
+  font-size: 35px !important;
+}
+
+.nav-link {
+  font-size: larger;
+}
+
+h1 {
+  text-align: center;
+  color: #C0F5FA;
+  font-family: 'Montserrat', sans-serif;
+}
+
+p {
+  font-family: 'Montserrat', sans-serif;
+  margin: auto;
+}
+
+/*Extra Misc*/
+
+.brand {
+  color: #582B11;
+}
+
+.brand:hover {
+  color: #AF125A;
+}
+
+.button {
+  color: #87F1FF !important;
+  font-family: 'Lobster', cursive;
+  /* display: inline-block ;
+  text-align: center; */
+}
+
+.button:hover {
+  color: #AF125A !important;
+}
+
+/*About Us*/
 
 .jumbotron h1 {
   font-family: 'Lobster';
@@ -55,14 +87,14 @@ body {
   width: 11%;
 }
 
-.label {
-  font-weight: bold;
-}
-
 .aboutus {
   text-align: center;
   font-weight: bold;
   color: #582B11;
+}
+
+.label {
+  font-weight: bold;
 }
 
 .display-2 {
@@ -72,22 +104,9 @@ body {
   width: 84%;
 }
 
-.card {
-  width: 20%;
-  height: 80%;
-  padding: 25px 50px 25px 50px;
-  
-}
-
 .table {
   background-color: #BD8B9C;
   margin-top: 150px;
-}
-
-h1 {
-  text-align: center;
-  color: #C0F5FA;
-  font-family: 'Montserrat', sans-serif
 }
 
 .formgroup {
@@ -100,18 +119,52 @@ h1 {
   overflow: auto;
 }
 
+/*Mama and Baby Table product displays*/
+
 .card-body {
   background-color: #BD8B9C;
   width: 100%;
 }
 
+.card-image {
+  height: 30%;
+  border: 2px, solid, #582B11;
+}
+
 .card {
   background-color: #C0F5FA !important;
   text-align: center;
+  margin: 15px;
+  padding: 10px;
+  width: auto;
+  height: auto;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
 }
 
-p {
-  font-family: 'Montserrat', sans-serif;
+.add-card {
+  background-color: #C0F5FA !important;
+  text-align: center;
+  /* margin: 15px; */
+  padding: 10px 20px;
+  width: 25%;
+  height: 40%;
+  align-items: center;
+  display: grid;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+}
+
+#delete-button {
+  background-color: #582B11 !important;
+  font-family: 'Lobster', cursive;
+}
+
+#delete-button:hover {
+  color: #AF125A !important;
 }
 
 .label {
@@ -126,17 +179,20 @@ p {
   border: 2px, solid, #C0F5FA;
   background-color: #AF125A;
   padding: 10px;
-  display: inline-block;
-}
-
-.card {
-  padding: 10px;
-  margin: 500px;
+  display: block;
 }
 
 #table {
   padding: 100px 5px;
 }
+
+.container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-row-gap: 50px;
+}
+
+/*Auth diplays*/
 
 .label-login {
   color: #AF125A;
@@ -150,6 +206,8 @@ p {
   display: inline-block;
 }
 
+/*Modals*/
+
 .modal-title {
   font-family: 'Lobster', cursive;
   text-align: center;
@@ -157,9 +215,41 @@ p {
 
 .modal-header {
   background-color: #AF125A;
-
 }
 
-.button {
+.submit-button {
   color: #AF125A;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/*Contact Us*/
+
+.contact_items {
+  font-family: 'Montserrat', sans-serif;
+  color: #87F1FF;
+}
+
+.contact_img {
+  margin-left: auto;
+  margin-right: auto;
+  align-items: center;
+}
+
+.contact_us {
+  background-image: url("")
+}
+
+/*Footer*/
+
+.footer-text {
+  color: white;
+  padding: 700px;
+}
+
+/*Home*/
+
+.slide-img {
+  align-items: center !important;
+  margin: auto;
+  width: 100% ;
 }

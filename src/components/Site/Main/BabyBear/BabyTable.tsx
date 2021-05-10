@@ -1,7 +1,7 @@
 import React, { Component} from "react";
-import { Link } from "react-router-dom";
+
 import { Card, CardImg, CardText, CardBody,
-  CardTitle, CardSubtitle, Button} from "reactstrap";
+  CardTitle, CardSubtitle, Button, ModalBody, Modal, ModalHeader, Container, Row, Col} from "reactstrap";
    import { Redirect } from "react-router-dom";
    import BabyEdit from "./BabyEdit";
    import BabyDelete from "./BabyDelete";
@@ -19,7 +19,8 @@ token: string,
 type babyVariables = {
   babylist: [],
   list: [], 
-  role: string
+  role: string,
+  modal: boolean
     
 }
 
@@ -29,7 +30,8 @@ class BabyTable extends Component<BabyProps, babyVariables > {
         this.state = {
           babylist: [],
           list: [], 
-          role: ''
+          role: '',
+           modal: true
         }
     }
 
@@ -41,6 +43,10 @@ class BabyTable extends Component<BabyProps, babyVariables > {
       }
       this.fetchBabyList();
     }
+
+      toggle = () => {
+  this.setState({modal: !this.state.modal})
+}
 
 fetchBabyList = () => {
   let localToken = localStorage.getItem("token")
@@ -66,15 +72,42 @@ fetchBabyList = () => {
 
     render() { 
         return ( 
-<div>
+<div >
 
-    <h1 id="table">Your Products </h1>
+    <h1 id="table">Your Baby Products </h1>
+<Card className="add-card"> 
+  <CardBody>
+          <CardTitle tag="h5">Add Item Here!</CardTitle>
+          
+<Button className="button" onClick={this.toggle}>Add Item</Button> 
+</CardBody>
+
+<Modal isOpen={!this.state.modal} toggle={this.toggle}>
+        <ModalHeader toggle={this.toggle}>Add Item</ModalHeader>
+            <ModalBody></ModalBody>
+           
+        <CardBody>
+          <CardTitle tag="h5">Requirements</CardTitle>
+          
+          <CardText>You will need the brand, title, price, the name of the store you plan to buy it from, a picture of your item, and an idea of how many you plan to buy.</CardText>
+       <BabyAdd token={this.props.token} babylist={this.state.babylist} fetchBabyList={this.fetchBabyList} />
+        </CardBody>
+        </Modal>
+    
+      </Card>
+
+
+<Container fluid>
+<Row xs="3">
     {/* {((this.fetchBabyList === undefined) || this.fetchBabyList.length == 0 )? <Redirect to ="BabyAdd"/> : this.fetchBabyList} */}
-         { this.state.babylist.map((babylist: any) => ( <Card  >
-        <CardImg top width="100%" src={babylist.photo} alt="Picture of Product"  />
+         { this.state.babylist.map((babylist: any) => ( 
+          
+           <Col>
+         <Card  >
+        <CardImg top width="70%" src={babylist.photo} alt=""  />
         <CardBody className= "card-body">
-          <CardTitle tag="h5">Brand: {babylist.brand}</CardTitle>
-          <CardSubtitle tag="h5" className="mb-2 text-muted">Name of item: {babylist.title}</CardSubtitle>
+          <CardTitle tag="h5">Name of item: {babylist.title} </CardTitle>
+          <CardSubtitle tag="h6" className="mb-2 text-muted"> Brand: {babylist.brand}</CardSubtitle>
           <CardText>Store: {babylist.store} </CardText>
             <CardText>Quantity: {babylist.quantity} </CardText>
               <CardText>${babylist.price}</CardText>
@@ -89,7 +122,10 @@ fetchBabyList = () => {
 
         </CardBody>
       </Card>
+     </Col>
     ))}
+     </Row>
+      </Container>
 
     </div>
   );

@@ -1,8 +1,9 @@
 import React, {Component} from "react";
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, Modal, Button } from "reactstrap";
 import { Route, Link, Switch, Redirect } from "react-router-dom";
-import AboutUs from "./Main/AboutUs";
+import Contact from "./Contact";
 import Home from "./Main/Home";
+import AboutUs from "./AboutUs";
 import MamaAdd from "./Main/MamaBear/MamaAdd";
 import MamaTable  from "./Main/MamaBear/MamaTable";
 import BabyAdd from "./Main/BabyBear/BabyAdd";
@@ -45,7 +46,7 @@ render() {
       <div>
          <header>
     <Navbar className="header" >
-        <NavbarBrand href="/home" className="brand">
+        <NavbarBrand  href="/home" className="brand">
           Mama Bear's Den
         </NavbarBrand>
 
@@ -53,40 +54,43 @@ render() {
         <Collapse isOpen={!this.state.collapsed} navbar  >
           <Nav navbar>
             <NavItem>
-              <NavLink href="Home" className="inactive">Home</NavLink>
+              <NavLink href="Home" className="button">Home</NavLink>
             </NavItem>
 
-<NavItem>
-              <NavLink href="Profile" className="inactive">My Profile</NavLink>
-            </NavItem>
-
-             <NavItem>
+             {/* <NavItem>
               <NavLink href="BabyAdd" className="inactive">Add a Baby Product</NavLink>
-            </NavItem>
+            </NavItem> */}
             
              <NavItem>
-              <NavLink href="BabyTable" className="inactive">See your Baby Products</NavLink>
+              <NavLink href="BabyTable" className="button">See your Baby Products</NavLink>
             </NavItem>
     
-
+{/* 
       <NavItem>
               <NavLink href="MamaAdd" className="inactive">Add a Mama Product</NavLink>
-            </NavItem>
+            </NavItem> */}
 
 
             <NavItem>
-              <NavLink href="MamaTable" className="inactive">See your Mama Products</NavLink>
+              <NavLink href="MamaTable" className="button">See your Mama Products</NavLink>
             </NavItem>
           
                
 
                 <NavItem>
-              <NavLink href="AboutUs" className="inactive">About Us</NavLink>
+              <NavLink href="Contact" className="button">Contact Us</NavLink>
             </NavItem>
 
 
+ <NavItem>
+              <NavLink href="AboutUs" className="button">About Us</NavLink>
+            </NavItem>
+
+
+
+
             <NavItem>
-             <Button onClick={() => this.props.logout()}>Logout</Button>
+             <Button className="button" onClick={() => this.props.logout()}>Logout</Button>
             </NavItem>
            
           </Nav>
@@ -99,11 +103,14 @@ render() {
            
           </Route>
 
-          <Route exact path="/aboutus">
-            <AboutUs />
+          <Route exact path="/contact">
+            <Contact />
           </Route>
-  
-  {/* <Route exact path="/mamaAdd">
+              <Route exact path="/aboutus">
+            <AboutUs/>
+          </Route>
+{/*   
+  <Route exact path="/mamaAdd">
           {localStorage.getItem("token")  ? <MamaAdd token={this.props.token}/> : <Auth updateToken={this.props.updateToken} token={this.props.token} />}
             
           </Route> */}

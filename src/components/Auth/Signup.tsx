@@ -37,7 +37,7 @@ class Signup extends Component<SignUpProps, SignUpVariables> {
       .then((data) => {
     console.log(data);
         this.props.updateToken(data.sessionToken);
-          localStorage.setItem("role", data.user.role)
+        localStorage.setItem("role", data.user.role);
       this.props.toggle();
       
       });

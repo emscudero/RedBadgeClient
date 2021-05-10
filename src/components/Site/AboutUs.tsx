@@ -23,10 +23,10 @@ render() {
              
             <br/>
             <Jumbotron>
-              <h1 className="display-2">Mama Bear's Den is the place for a mom to find the help and resources she needs to keep herself organized.</h1>
+              <h1 className="display-2">Mama Bear's Den is the place for a mom to find the help she needs to remember the items her family needs.</h1>
               <p className="lead"></p>
               <hr className="my-2" />
-              {/*<img src ="https://res.cloudinary.com/dqaf1fih0/image/upload/v1619574110/photos-RBP/babies_ahikax.jpg" />*/}
+              <img src ="https://res.cloudinary.com/dqaf1fih0/image/upload/c_scale,w_750/v1619574110/photos-RBP/babies_ahikax.jpg" />
               <p></p>
               
             </Jumbotron>
@@ -44,3 +44,5 @@ render() {
     }
  
 export default AboutUs;
+
+

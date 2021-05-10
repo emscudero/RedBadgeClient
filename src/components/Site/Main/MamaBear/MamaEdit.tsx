@@ -34,12 +34,12 @@ class MamaEdit extends Component<MamaProps, MamaVariables> {
     constructor(props: MamaProps) {
         super(props);
         this.state = { 
-           brand: "",
-            title: "",
-            quantity: "",
-            price: "", 
-            store: "",
-            photo: "",
+           brand: this.props.mamalist.brand,
+            title: this.props.mamalist.title,
+            quantity: this.props.mamalist.quantity,
+            price: this.props.mamalist.price, 
+            store: this.props.mamalist.store,
+            photo: this.props.mamalist.photo,
             modal: true,
             loading: false
          }
@@ -109,8 +109,9 @@ handleSubmit = (e:React.FormEvent) => {
       console.log(this.props.mamalist.id);
         return (
             <div>
-  <Button className="inactive" onClick={this.toggle}>Edit Item</Button> 
+  <Button className="button" onClick={this.toggle}>Edit Item </Button> 
 <Modal isOpen={!this.state.modal} toggle={this.toggle}>
+
         <ModalHeader toggle={this.toggle}>Update Item</ModalHeader>
             <ModalBody>
                 <Form onSubmit={this.handleSubmit}> 
@@ -121,7 +122,7 @@ handleSubmit = (e:React.FormEvent) => {
       <div className="label">
         <Label htmlFor="label">Brand</Label>
         <br></br>
-        <Input type="select" name="selectMulti" id="exampleSelectMulti"    multiple onChange={(e) => this.setState({brand: e.target.value})}>
+        <Input type="select" name="selectMulti" id="exampleSelectMulti"  multiple onChange={(e) => this.setState({brand: e.target.value})}>
           <option>Johnson & Johnson</option>
           <option>Burts Bees</option>
           <option>Medela</option>
@@ -147,19 +148,20 @@ handleSubmit = (e:React.FormEvent) => {
           type="text"
           name="label"
           placeholder="Title of Item"
-          value={this.props.mamalist.title}
+           value={this.state.title}
           onChange={(e) => this.setState({title: e.target.value})}
         />
       </div>
 <br></br>
       <div className="label">
          <Label htmlFor="label">Store</Label>
-        <Input type="select" name="select" id="store" {...this.props.mamalist.store} onChange={(e) => this.setState({store: e.target.value})}>
+        <Input type="select" name="select" id="store" value={this.state.store} onChange={(e) => this.setState({store: e.target.value})}>
           <option >Target</option>
           <option >Walmart</option>
           <option >Amazon</option>
           <option >Buy Buy Baby</option>
-          <option >Other</option>
+          <option >Other</option> 
+
         </Input>
       </div>
        <br></br>
@@ -169,7 +171,7 @@ handleSubmit = (e:React.FormEvent) => {
         <Input
           type="text"
           name="label"
-          value={this.props.mamalist.quantity}
+          value={this.state.quantity}
           onChange={(e) => this.setState({quantity: e.target.value})}
         />
         </div>
@@ -182,7 +184,7 @@ handleSubmit = (e:React.FormEvent) => {
             min={0}
             max={1000000}
             step="1"
-            value={this.props.mamalist.price}
+            value={this.state.price}
             onChange={(e) => this.setState({price: e.target.value})}
           />
           <InputGroupAddon addonType="append">.00</InputGroupAddon>
@@ -197,8 +199,7 @@ handleSubmit = (e:React.FormEvent) => {
         <Input
           type="file"
           name="label"
-        
-          onChange={this.uploadImage}
+        onChange={this.uploadImage}
         />
         {this.state.loading ? (
           <h3>Loading...</h3>
@@ -212,7 +213,7 @@ handleSubmit = (e:React.FormEvent) => {
       <br />
     
     
-      <Button type="submit">Submit</Button>
+      <Button className="button" type="submit">Update Item </Button>
          </Form> 
        
             </ModalBody>

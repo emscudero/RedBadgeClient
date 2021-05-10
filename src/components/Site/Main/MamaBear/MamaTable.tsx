@@ -1,7 +1,8 @@
 import React, { Component} from "react";
 import { Link } from "react-router-dom";
 import {Card, CardImg, CardText, CardBody,
-  CardTitle, CardSubtitle, Button} from "reactstrap";
+  CardTitle, CardSubtitle, Button,
+ModalBody, Modal, ModalHeader, Row} from "reactstrap";
   import MamaDelete from "./MamaDelete";
   import { Redirect } from "react-router-dom";
   import MamaEdit from "./MamaEdit";
@@ -20,7 +21,8 @@ token: string,
 type mamaVariables = {
 mamalist: [],
 list: [],
-role: string
+role: string,
+ modal: boolean
 }
 
 class MamaTable extends Component <MamaProps, mamaVariables>{
@@ -29,7 +31,8 @@ class MamaTable extends Component <MamaProps, mamaVariables>{
         this.state = { 
           mamalist: [],
           list: [],
-          role: ""
+          role: "",
+            modal: true
          }
     }
 
@@ -41,6 +44,10 @@ class MamaTable extends Component <MamaProps, mamaVariables>{
       this.fetchMamaList();
     }
 
+
+    toggle = () => {
+  this.setState({modal: !this.state.modal})
+}
     fetchMamaList = () => {
       let localToken = localStorage.getItem("token")
       localToken = localToken ? localToken: ""
@@ -68,19 +75,53 @@ class MamaTable extends Component <MamaProps, mamaVariables>{
         return (  
 <div>
 
-   <h1 id="table">Your Products </h1>
+   <h1 id="table">Your Mama Products </h1>
+
+<Card className="add-card"> 
+  <CardBody>
+          <CardTitle tag="h5">Add an Item Here!</CardTitle>
+<Button className="button" onClick={this.toggle}>Add Item</Button> 
+</CardBody>
+
+
+<Modal isOpen={!this.state.modal} toggle={this.toggle}>
+        <ModalHeader toggle={this.toggle}>Add Item</ModalHeader>
+            <ModalBody></ModalBody>
+
+        <CardBody>
+          <CardTitle tag="h5">Requirements</CardTitle>
+          
+          <CardText>You will need the brand, title, price, the name of the store you plan to buy it from, a picture of your item, and an idea of how many you plan to buy.</CardText>
+       <MamaAdd token={this.props.token} mamalist={this.state.mamalist} fetchMamaList={this.fetchMamaList} />
+        </CardBody>
+        </Modal>
+      </Card>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   {/*} {((this.fetchMamaList === undefined) || this.fetchMamaList.length == 0 )? <Redirect to ="MamaAdd"/> : (this.fetchMamaList) && <Redirect to ="/MamaTable"/>}*/}
     {this.state.mamalist.map((mamalist: any) => (
-      
+       <Row>
            <Card  >
              {/* {mamalist.id} */}
-        <CardImg top width="50%" src={mamalist.photo} alt="Picture of Product"  />
+        <CardImg  top width="50%" src={mamalist.photo} alt=""  />
         <CardBody className= "card-body">
-           <CardTitle tag="h5">Brand: {mamalist.brand}</CardTitle>
-          <CardSubtitle tag="h5" className="mb-2 text-muted">Name of item: {mamalist.title}</CardSubtitle>
+           <CardTitle tag="h5"> Name of item: {mamalist.title}</CardTitle>
+          <CardSubtitle tag="h6" className="mb-2 text-muted">Brand: {mamalist.brand}</CardSubtitle>
           <CardText>Store: {mamalist.store} </CardText>
-            <CardText>Quantity: {mamalist.quantity} </CardText>
+            <CardText >Quantity: {mamalist.quantity} </CardText>
               <CardText>${mamalist.price}</CardText>
          
             
@@ -93,6 +134,7 @@ class MamaTable extends Component <MamaProps, mamaVariables>{
 
         </CardBody>
       </Card>
+      </Row>
       ))  }
     </div>
 

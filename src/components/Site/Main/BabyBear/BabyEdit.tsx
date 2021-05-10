@@ -33,12 +33,12 @@ class BabyEdit extends Component<BabyProps, BabyVariables> {
     constructor(props: BabyProps) {
         super(props);
         this.state = { 
-           brand: "",
-            title: "",
-            quantity: "",
-            price: "", 
-            store: "",
-            photo: "",
+           brand: this.props.babylist.brand,
+            title: this.props.babylist.title,
+            quantity: this.props.babylist.quantity,
+            price: this.props.babylist.price, 
+            store: this.props.babylist.store,
+            photo: this.props.babylist.photo,
             modal: true,
             loading: false
          }
@@ -111,7 +111,7 @@ handleSubmit = (e:React.FormEvent) => {
       console.log(this.props.babylist.id);
         return (
          <div>
-  <Button className="inactive" onClick={this.toggle}>Edit Item</Button> 
+  <Button className="button" onClick={this.toggle}>Edit Item</Button> 
 <Modal isOpen={!this.state.modal} toggle={this.toggle}>
   
         <ModalHeader toggle={this.toggle}>Update Item</ModalHeader>
@@ -121,7 +121,7 @@ handleSubmit = (e:React.FormEvent) => {
       <div className="label">
         <Label htmlFor="label">Brand</Label>
         <br></br>
-        <Input type="select" name="selectMulti" id="exampleSelectMulti" multiple onChange={(e) => this.setState({brand: e.target.value})}>
+        <Input type="select" name="selectMulti" id="exampleSelectMulti"  multiple onChange={(e) => this.setState({brand: e.target.value})}>
           <option>Johnson & Johnson</option>
           <option>Delta</option>
           <option>Ikea</option>
@@ -151,13 +151,14 @@ handleSubmit = (e:React.FormEvent) => {
           type="text"
           name="label"
           placeholder="Title of Item"
+          value={this.state.title}
           onChange={(e) => this.setState({title: e.target.value})}
         />
       </div>
 <br></br>
       <div className="label">
          <Label htmlFor="label">Store</Label>
-        <Input type="select" name="select" id="store" onChange={(e) => this.setState({store: e.target.value})}>
+        <Input type="select" name="select" id="store" value={this.state.store} onChange={(e) => this.setState({store: e.target.value})}>
           <option >Target</option>
           <option >Walmart</option>
           <option >Amazon</option>
@@ -172,6 +173,7 @@ handleSubmit = (e:React.FormEvent) => {
         <Input
           type="text"
           name="label"
+          value={this.state.quantity}
           onChange={(e) => this.setState({quantity: e.target.value})}
         />
         </div>
@@ -199,6 +201,7 @@ handleSubmit = (e:React.FormEvent) => {
         <Input
           type="file"
           name="label"
+ 
           onChange={this.uploadImage}
         />
         {this.state.loading ? (
@@ -213,7 +216,7 @@ handleSubmit = (e:React.FormEvent) => {
       <br />
     
     
-      <Button type="submit">Submit</Button>
+      <Button className="button" type="submit">Update Item</Button>
       </Form> 
        
             </ModalBody>

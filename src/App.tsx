@@ -8,7 +8,7 @@ import Header from "./components/Site/Header";
 import Footer from "./components/Site/Footer";
 import Auth from "./components/Auth/Auth";
 import Home from "./components/Site/Main/Home";
-import AboutUs from "./components/Site/Main/AboutUs";
+import Contact from "./components/Site/Contact";
 import { collapseTextChangeRangesAcrossMultipleVersions } from 'typescript';
 
 
@@ -64,8 +64,7 @@ class App extends Component<AppProps, AppVariables> {
     <div>
       <Router>
         <Header updateToken = {this.updateToken} logout={this.logout} token={this.state.sessionToken} />
-       
-
+     
       {/*{this.protectedViews()}
       {/*<Route exact path='/'>
       {Admin = true ? <Redirect to="/home" /> : <home />
@@ -76,6 +75,8 @@ class App extends Component<AppProps, AppVariables> {
 
     </Route>*/}
      </Router>
+       <Footer />
+
     </div>
   );
 }
