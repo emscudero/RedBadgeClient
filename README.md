@@ -46,3 +46,6 @@ You can learn more in the [Create React App documentation](https://facebook.gith
 To learn React, check out the [React documentation](https://reactjs.org/).
 
 Full Documentation for the project can be found at "https://app.gitbook.com/@emily-scudero/s/redbadge-journal/final-project/project-information"
+
+This website is geared toward helping moms keep their grocery list for baby and mama products all together. 
+In the future I would like to add a profile page as well as a platform for moms to blog on. 
