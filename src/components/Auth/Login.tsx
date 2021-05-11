@@ -71,15 +71,7 @@ class Login extends Component<LoginProps, UserVariables> {
               required
             />
           </FormGroup>
-          {/*<FormGroup>
-            <Label htmlFor="role">Role</Label>
-            <Input
-              onChange={(e) => this.setState({role: e.target.value})}
-              name="role"
-              value={this.state.role}
-              required
-            />
-          </FormGroup>*/}
+         
           <Button type="submit">Login</Button>
         </Form>
       </div>

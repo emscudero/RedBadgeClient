@@ -78,34 +78,15 @@ class MamaTable extends Component <MamaProps, mamaVariables>{
    <h1 id="table">Your Mama Products </h1>
 
 <Card className="add-card"> 
-  <CardBody>
-          <CardTitle tag="h5">Add an Item Here!</CardTitle>
-<Button className="button" onClick={this.toggle}>Add Item</Button> 
-</CardBody>
-
-
-<Modal isOpen={!this.state.modal} toggle={this.toggle}>
-        <ModalHeader toggle={this.toggle}>Add Item</ModalHeader>
-            <ModalBody></ModalBody>
-
+ 
         <CardBody>
           <CardTitle tag="h5">Requirements</CardTitle>
           
           <CardText>You will need the brand, title, price, the name of the store you plan to buy it from, a picture of your item, and an idea of how many you plan to buy.</CardText>
        <MamaAdd token={this.props.token} mamalist={this.state.mamalist} fetchMamaList={this.fetchMamaList} />
         </CardBody>
-        </Modal>
+        
       </Card>
-
-
-
-
-
-
-
-
-
-
 
 
 <Container fluid>

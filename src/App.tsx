@@ -67,15 +67,7 @@ class App extends Component<AppProps, AppVariables> {
         <Header updateToken = {this.updateToken} logout={this.logout} token={this.state.sessionToken} />
         
      
-      {/*{this.protectedViews()}
-      {/*<Route exact path='/'>
-      {Admin = true ? <Redirect to="/home" /> : <home />
-    ) : (
-      <Redirect to ="/login" /> : <login />
-    )} 
-
-
-    </Route>*/}
+    
      </Router>
        <Footer />
 

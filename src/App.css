@@ -24,11 +24,11 @@ body {
 }
 
 .navbar-toggler {
-  background-color: white !important;
+  background-color: #AF125A !important;
 }
 
 .navbar-toggler-icon {
-  background-color: #87F1FF !important;
+  background-image: url("https://www.pinclipart.com/picdir/middle/338-3388563_brown-bear-clipart-paw-grizzly-bear-paw-logo.png") !important;
   border-radius: 30%;
 }
 
@@ -267,9 +267,6 @@ p {
   background-color: #BD8B9C;
 }
 
-.contact-button{
-  
-}
 /*Footer*/
 
 .footer-text {
@@ -279,8 +276,16 @@ p {
 
 /*Home*/
 
-.slide-img {
-  align-items: center !important;
-  margin: auto;
-  width: 100%;
+.carousel-img{
+  align-items: center ;
+  margin: 500px !important;
+  width: 100% ;
+}
+
+.product-links {
+  width: 50%;
+}
+
+.carousel-items > img {
+  align-items: center;
 }

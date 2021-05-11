@@ -26,22 +26,45 @@ class BabyDelete extends Component <BabyProps, babyVariables> {
           }
         }
 
-        deleteItem = (e:React.FormEvent) => {
-        let token = this.props.token ? this.props.token : localStorage.getItem("token");
-        fetch(`http://localhost:3000/mamalist/delete/${this.props.babylist.id}`, {
-            method: "DELETE",
-            headers: new Headers({
-                "Content-Type": "application/json",
-                "Authorization": token ? token : ""
+        deleteItem = () => {
+
+fetch(`http://localhost:3000/babylist/delete/${this.props.babylist.id}`, {
+      method: "DELETE",
+      headers: new Headers({
+        "Content-Type": "application/json",
+        Authorization: `${localStorage.getItem("token")}`,
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+        this.props.fetchBabyList()
+
+      });
+  }
+
+
+
+
+
+        //     console.log("I'm being clicked");
+        //      console.log(this.props.babylist.id);
+        // let token = this.props.token ? this.props.token : localStorage.getItem("token");
+        // fetch(`http://localhost:3000/mamalist/delete/${this.props.babylist.id}`, {
+        //     method: "DELETE",
+        //     headers: new Headers({
+        //         "Content-Type": "application/json",
+        //         "Authorization": token ? token : ""
                 
-            }
-            )
+        //     }
+        //     )
        
     
-    }
-        )
-        .then(() => this.props.fetchBabyList());
-}
+    // }
+    //     )
+    //     .then((res) => res.json())
+    //     .then(() => this.props.fetchBabyList());
+
 
 
     render(){

@@ -160,10 +160,10 @@ render() {
       previous={this.previous}
     >
         
-      <CarouselIndicators items={this.items} activeIndex={this.state.activeIndex} onClickHandler={this.goToIndex} />
+      {/* <CarouselIndicators items={this.items} activeIndex={this.state.activeIndex} onClickHandler={this.goToIndex} /> */}
       
       {this.slides}
-     {/* <Button className="product-slide-button">Direct Me to Website</Button> */}
+    
       <CarouselControl direction="prev" directionText="Previous" onClickHandler={this.previous} />
       <CarouselControl direction="next" directionText="Next" onClickHandler={this.next} />
       
@@ -176,54 +176,54 @@ render() {
     <br></br>
       <br></br>
 
-    <h1>Interested In these Items?</h1>
+    <h1>Interested In These Items?</h1>
 
-<Card body>
+<Card body className="product-links">
         <CardTitle tag="h5">Chicco Travel System</CardTitle>
         <CardText>Bravo Trio Stroller</CardText>
         <CardLink href="https://www.chiccousa.com/shop-our-products/travel-systems/all-travel-systems/bravo-trio-travel-system/79632.html?dwvar_79632_color=Camden&cgid=gear_travel_systems_all#start=1">Buy Now</CardLink>
       </Card>
-      <Card body className="text-center">
+      <Card body className="product-links">
         <CardTitle tag="h5">Gracco Car Seat</CardTitle>
         <CardText>Gracco 4Ever DLX 4-in-1 Car Seat</CardText>
         <CardLink href="https://www.gracobaby.com/car-seats/all-in-one-car-seats/4ever-dlx-4-in-1-car-seat/SAP_2074900.html">Buy Now</CardLink>
       </Card>
-      <Card body className="text-right">
+      <Card body className="product-links">
         <CardTitle tag="h5">Hatch White Noise Maker</CardTitle>
         <CardText>Hatch Rest Sound Machine</CardText>
          <CardLink href="https://www.hatch.co/rest?gclid=Cj0KCQjws-OEBhCkARIsAPhOkIZ1UYMplRQghs4ANPoomPUVllq_b1F-E_eBGNsKoQMnkWDirw24dDkaAhdTEALw_wcB">Buy Now</CardLink>
       </Card>
- <Card body className="text-right">
+ <Card body className="product-links">
         <CardTitle tag="h5">Boppy Nursing Pillow</CardTitle>
         <CardText>Boppy Pillow</CardText>
          <CardLink href="https://www.boppy.com/products/boppy-classic-feeding-infant-support-pillow">Buy Now</CardLink>
       </Card>
-       <Card body className="text-right">
+       <Card body className="product-links">
         <CardTitle tag="h5">Munchkin Easy Close</CardTitle>
         <CardText>Baby Gate</CardText>
          <CardLink href="https://www.munchkin.com/safety/gates.html">Buy Now</CardLink>
       </Card>
-       <Card body className="text-right">
+       <Card body className="product-links">
         <CardTitle tag="h5">Skip Hop Mainframe Diaper Backpack</CardTitle>
         <CardText>Mainframe Diaper Backpack</CardText>
          <CardLink href="https://www.skiphop.com/skiphop-diaper-bags/V_200150.html">Buy Now</CardLink>
       </Card>
-       <Card body className="text-right">
+       <Card body className="product-links">
         <CardTitle tag="h5">mamaRoo4 infant seat</CardTitle>
         <CardText>Bouncer</CardText>
          <CardLink href="https://www.4moms.com/products/mamaroo">Buy Now</CardLink>
       </Card>
-       <Card body className="text-right">
+       <Card body className="product-links">
         <CardTitle tag="h5">Baby Brezza Pro Advance</CardTitle>
         <CardText>Formula Dispenser</CardText>
          <CardLink href="https://babybrezza.com/products/formula-pro-advanced">Buy Now</CardLink>
       </Card>
-       <Card body className="text-right">
+       <Card body className="product-links">
         <CardTitle tag="h5">Artifact Uprising Baby Board Book</CardTitle>
         <CardText>Customized Baby Book</CardText>
          <CardLink href="https://www.artifactuprising.com/photo-books/baby-board-book">Buy Now</CardLink>
       </Card>
-       <Card body className="text-right">
+       <Card body className="product-links">
         <CardTitle tag="h5">Mama Bear Clothing</CardTitle>
         <CardText>Clothing</CardText>
          <CardLink href="https://www.amazon.com/b?ie=UTF8&node=18990963011">Buy Now</CardLink>

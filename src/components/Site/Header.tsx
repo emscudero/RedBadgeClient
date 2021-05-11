@@ -106,6 +106,7 @@ render() {
           <Route exact path="/contact">
             <Contact />
           </Route>
+          
               <Route exact path="/aboutus">
             <AboutUs/>
           </Route>

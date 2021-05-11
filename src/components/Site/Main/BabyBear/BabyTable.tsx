@@ -44,6 +44,7 @@ class BabyTable extends Component<BabyProps, babyVariables > {
       this.fetchBabyList();
     }
 
+    
       toggle = () => {
   this.setState({modal: !this.state.modal})
 }
@@ -76,15 +77,7 @@ fetchBabyList = () => {
 
     <h1 id="table">Your Baby Products </h1>
 <Card className="add-card"> 
-  <CardBody>
-          <CardTitle tag="h5">Add Item Here!</CardTitle>
-          
-<Button className="button" onClick={this.toggle}>Add Item</Button> 
-</CardBody>
-
-<Modal isOpen={!this.state.modal} toggle={this.toggle}>
-        <ModalHeader toggle={this.toggle}>Add Item</ModalHeader>
-            <ModalBody></ModalBody>
+  
            
         <CardBody>
           <CardTitle tag="h5">Requirements</CardTitle>
@@ -92,7 +85,7 @@ fetchBabyList = () => {
           <CardText>You will need the brand, title, price, the name of the store you plan to buy it from, a picture of your item, and an idea of how many you plan to buy.</CardText>
        <BabyAdd token={this.props.token} babylist={this.state.babylist} fetchBabyList={this.fetchBabyList} />
         </CardBody>
-        </Modal>
+      
     
       </Card>
 
@@ -104,7 +97,7 @@ fetchBabyList = () => {
           
            <Col>
          <Card  >
-        <CardImg top width= "50%" height= "50%" src={babylist.photo} alt=""  />
+        <CardImg top width= "50%"  src={babylist.photo} alt=""  />
         <CardBody className= "card-body">
           <CardTitle tag="h5">Name of item: {babylist.title} </CardTitle>
           <CardSubtitle tag="h6" className="mb-2 text-muted"> Brand: {babylist.brand}</CardSubtitle>
